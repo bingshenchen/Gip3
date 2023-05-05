@@ -1,0 +1,34 @@
+﻿@using Kendo.Mvc.UI
+
+@{
+    ViewData["Title"] = "Toe te wijzen bestellingen";
+}
+
+<h1>Toe te wijzen bestellingen (Cook - @ViewBag.ChefName)</h1>
+
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<Order>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id);
+            columns.Bound(p => p.OrderedOn);
+            columns.Bound(p => p.TimeSlot);
+            columns.Bound(p => p.Total);
+            columns.Bound(p => p.CustomerId);
+            columns.Bound(p => p.CookId);
+            columns.Bound(p => p.Status);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='btn btn-primary' style='color:white;' href='" +
+            Url.Action("Assign", "CookOrders", new { id = "#= Id #" }) +
+            "'" + ">Selecteer</a>"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetOrdersToAssign", "CookOrders"))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>

@@ -1,0 +1,52 @@
+﻿@using Kendo.Mvc.UI
+
+@{
+    ViewData["Title"] = "Overzicht klanten";
+}
+
+<h1>Overzicht klanten</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Nieuwe klant</a>
+</p>
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<Customer>()
+            .Name("grid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.Id);
+                columns.Bound(p => p.Name);
+                columns.Bound(p => p.Info);
+                columns.Bound(p => p.VATNumber);
+                columns.Bound(p => p.CompanyName);
+                //columns.Bound(p => p.IdentityUserId);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Edit", "Customers") +
+            "/#= Id #'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Details", "Customers") +
+            "/#= Id #'" + "><span class='k-icon k-i-info-circle'></span>Details</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+                "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("CustomerIndex", "Orders") +
+                    "/#= Id #'" + "><span class='k-icon k-i-link'></span>Bestellingen</a>"
+                );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Delete", "Customers") +
+            "/#= Id #'" + "><span class='k-icon k-i-delete'></span>Verwijderen</a>"
+            );
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("GetCustomers", "Customers"))
+                .Model(model => model.Id(d => d.Id))
+            )
+     )
+</div>
+
