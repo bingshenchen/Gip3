@@ -1,0 +1,41 @@
+﻿@using Kendo.Mvc.UI
+
+@{
+    ViewData["Title"] = "Toegewezen bestellingen";
+}
+
+<h1>Toegewezen bestellingen (Cook - @ViewBag.ChefName)</h1>
+
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<Order>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id);
+            columns.Bound(p => p.OrderedOn);
+            columns.Bound(p => p.TimeSlot);
+            columns.Bound(p => p.Total);
+            columns.Bound(p => p.CustomerId);
+            columns.Bound(p => p.CookId);
+            columns.Bound(p => p.Status);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(Status == 1) {#" +
+            "<a class='btn btn-primary' style='color:white;' href='" +
+            Url.Action("Start", "CookOrders", new { id = "#= Id #" }) +
+            "'" + ">Start</a>" +
+            "#} else if(Status == 2) {#" +
+            "<a class='btn btn-success' style='color:white;' href='" +
+            Url.Action("Finish", "CookOrders", new { id = "#= Id #" }) +
+            "'" + ">Klaar</a>" +
+            "#}#"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetAssignedOrders", "CookOrders", new { id = ViewBag.CookId }))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>
+

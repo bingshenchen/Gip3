@@ -1,0 +1,96 @@
+﻿@model IEnumerable<GIP.PRJ.TraiteurApp.Models.OrderDetail>
+
+@{
+    ViewData["Title"] = "Bestelling details";
+}
+
+<h1>Factuur</h1>
+
+<div>
+    <h4>Bestelling - @ViewBag.OrderId</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Timeslot
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.TimeSlot
+        </dd>
+        <dt class = "col-sm-2">
+            Klant naam
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.CustomerInfo
+        </dd>
+         <dt class = "col-sm-2">
+            Totaal (incl BTW)
+        </dt>
+            <dd class = "col-sm-10">
+            @ViewBag.TotalInclVAT
+        </dd>
+        @if (ViewBag.IsProfessional)
+        {
+            <dt class="col-sm-2">
+            BTW
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.VAT
+            </dd>
+            <dt class="col-sm-2">
+                Totaal (excl BTW)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.TotalExclVAT
+            </dd>
+        }
+        <dt class="col-sm-2">
+            Korting
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.Reduction
+        </dd>
+        <dt class="col-sm-2">
+            Te betalen
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.ToPay
+        </dd>
+    </dl>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MenuItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MenuItem.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+<div>
+    <a class="btn btn-success" onclick="window.print();">Print</a>
+    <a class="btn btn-info" asp-action="SendMail" asp-controller="Orders" asp-route-id="@ViewBag.OrderId">Verstuur via mail</a>
+</div>

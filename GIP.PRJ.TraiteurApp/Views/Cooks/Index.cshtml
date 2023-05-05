@@ -1,0 +1,45 @@
+﻿@using Kendo.Mvc.UI
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Overzicht koks</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Nieuwe kok</a>
+</p>
+
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<Cook>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id);
+            columns.Bound(p => p.ChefName);
+            columns.Bound(p => p.YearsOfExperience);
+            columns.Bound(p => p.IdentityUserId);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Edit", "Cooks") +
+            "/#= Id #'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Details", "Cooks") +
+            "/#= Id #'" + "><span class='k-icon k-i-info-circle'></span>Details</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Delete", "Cooks") +
+            "/#= Id #'" + "><span class='k-icon k-i-delete'></span>Verwijderen</a>"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetCooks", "Cooks"))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>
