@@ -24,6 +24,10 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ICookService, CookService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<ITimeSlotService, TimeSlotService>();
+/// Sende Email
+builder.Services.AddHostedService<MailerBackgroundService>();
+builder.Services.AddTransient<IMailerWorkerService, MailerWorkerService>();
+
 
 /// ServiceLifetime.Transient => belangrijk wanneer de context meerdere keren per action call wordt gebruikt om een entiteit op te halen.
 builder.Services.AddDbContext<TraiteurAppDbContext>(options =>
