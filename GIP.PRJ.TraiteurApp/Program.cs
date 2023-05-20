@@ -4,6 +4,16 @@ using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+/* Opdracht:                Gip3 TraiteurApp
+ * Groep:                   21
+ * Lid:                     Bingshen, Rijensh, Ward    
+ * Techical consultant:     Henk
+ * Version:                 3.1.0
+ * Datum:                   2023/5/16
+ */
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +34,10 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ICookService, CookService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<ITimeSlotService, TimeSlotService>();
+/// Sende Email
+builder.Services.AddHostedService<MailerBackgroundService>();
+builder.Services.AddTransient<IMailerWorkerService, MailerWorkerService>();
+
 
 /// ServiceLifetime.Transient => belangrijk wanneer de context meerdere keren per action call wordt gebruikt om een entiteit op te halen.
 builder.Services.AddDbContext<TraiteurAppDbContext>(options =>

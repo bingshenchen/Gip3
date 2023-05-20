@@ -25,5 +25,8 @@
         public virtual Cook Cook { get; set; }
         public virtual Customer Customer { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public bool ReminderSent { get; set; }
+
     }
+
 }

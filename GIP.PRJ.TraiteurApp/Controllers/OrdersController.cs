@@ -344,7 +344,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
             try
             {
-                _mailService.SendMail("from@domain", order.Customer.EmailAddress, "Lekkerbek - Factuur (bestelling " + order.Id + ")",
+                _mailService.SendMail("lekkerbekgip3@outlook.com", order.Customer.EmailAddress, "Lekkerbek - Factuur (bestelling " + order.Id + ")",
                     mailContent);
                 ViewBag.InfoMessage = "De mail werd correct verstuurd";
             }

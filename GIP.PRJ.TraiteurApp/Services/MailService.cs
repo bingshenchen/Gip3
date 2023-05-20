@@ -15,11 +15,11 @@ namespace GIP.PRJ.TraiteurApp.Services
             /// smtpUrl: relay.proximus.be
             /// from@domain: gip.teamx@proximus.be
             /// password: UcllGip2023,,
-            SmtpClient smtpClient = new SmtpClient("smtpUrl", 587)
+            SmtpClient smtpClient = new SmtpClient("smtp.office365.com", 587)
             {
                 EnableSsl = true,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential("from@domain", "password")
+                Credentials = new NetworkCredential("lekkerbekgip3@outlook.com", "gip3groep21")
             };
             MailMessage mailMessage = new MailMessage(from, to, subject, body);
             mailMessage.IsBodyHtml = true;
