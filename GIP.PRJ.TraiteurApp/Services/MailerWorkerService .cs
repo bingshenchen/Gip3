@@ -21,6 +21,8 @@ namespace GIP.PRJ.TraiteurApp.Services
             {
                 var fromAddress = new MailAddress("lekkerbekgip3@outlook.com", "Lekker Bek");
                 var toAddress = new MailAddress(toEmailAddress);
+
+                // var encryptedPassword = AesOperation.EncryptString(_encryptionKey, "gip3groep21");
                 const string fromPassword = "gip3groep21"; // Tijdelijke mailbox
 
                 var OutLookSmtp = new SmtpClient
@@ -31,6 +33,7 @@ namespace GIP.PRJ.TraiteurApp.Services
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                    // Credentials = new NetworkCredential(fromAddress.Address, encryptedPassword)
                 };
 
                 /*
