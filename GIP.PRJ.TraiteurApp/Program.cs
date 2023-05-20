@@ -4,6 +4,7 @@ using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+
 /* Opdracht:                Gip3 TraiteurApp
  * Groep:                   21
  * Lid:                     Bingshen, Rijensh, Ward    
@@ -11,9 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
  * Version:                 3.1.0
  * Datum:                   2023/5/16
  */
-
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
