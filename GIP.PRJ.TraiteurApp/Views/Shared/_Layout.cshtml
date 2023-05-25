@@ -45,6 +45,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Users</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CreateRolesViewModels" asp-action="Index">Roles</a>
+                            </li>
                         }
                         @if (User.IsInRole("Customer"))
                         {

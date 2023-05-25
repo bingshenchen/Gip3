@@ -21,8 +21,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             _roleManager = roleManager;
             _rolesService = rolesService;
         }
-
-        // GET: CreateRolesViewModels
         public async Task<IActionResult> Index()
         {
             var users = await _rolesService.GetUsersIdentity();
@@ -39,6 +37,23 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             }*/
             return View(userRoles);
         }
-        
+
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> Edit()
+        {
+            return View();
+
+        }
+
+        public async Task<IActionResult> Delete()
+        {
+            return View();
+
+        }
+
     } 
 }
