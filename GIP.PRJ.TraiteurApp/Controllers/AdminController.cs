@@ -25,9 +25,10 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: CreateRolesViewModels
         public async Task<IActionResult> Index()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = await _rolesService.GetUsersIdentity();
+            return View(users);
             var userRoles = new List<CreateRolesViewModel>();
-            foreach (IdentityUser user in users)
+            /*foreach (IdentityUser user in users)
             {
                 var thisViewModel = new CreateRolesViewModel();
 
@@ -35,7 +36,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                 thisViewModel.Name = user.UserName;
                 thisViewModel.Email = user.Email;
                 //thisViewModel.RoleNames = await _rolesService.GetUsersRoles();
-            }
+            }*/
             return View(userRoles);
         }
         

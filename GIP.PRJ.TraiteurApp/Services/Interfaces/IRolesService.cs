@@ -6,9 +6,8 @@ namespace GIP.PRJ.TraiteurApp.Services.Interfaces
 {
     public interface IRolesService
     {
-        Task<IEnumerable<CreateRolesViewModel>> GetUsersRoles(IdentityRole roleId);
-        Task<IEnumerable<CreateRolesViewModel>> GetUsersIdentity(IdentityUser userId);
-        Task CreateUserAsync(IdentityUser identityUser);
+        Task<List<IdentityRole>> GetUsersRoles();
+        Task<List<IdentityUser>> GetUsersIdentity();
         Task UpdateUserAsync(IdentityUser identityuser);
         Task DeleteUserAsync(int id);
     }
