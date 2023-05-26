@@ -56,15 +56,7 @@ namespace GIP.PRJ.TraiteurApp.Services
         }
         public Task UpdateUserAsync(IdentityUser identityuser)
         {
-            try
-            {
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            throw new NotImplementedException();
         }
 
         public Task DeleteUserAsync(int id)
