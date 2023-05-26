@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GIP.PRJ.TraiteurApp.Data;
 using GIP.PRJ.TraiteurApp.Models;
+using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
@@ -15,6 +16,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IRolesService _rolesService;
         private readonly GIPPRJTraiteurAppContext _context;
 
         public CreateRolesViewModelsController(GIPPRJTraiteurAppContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -27,8 +29,10 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: CreateRolesViewModels
         public async Task<IActionResult> Index()
         {
-            var gIPPRJTraiteurAppContext = _context.CreateRolesViewModel.Include(c => c.IdentityUser);
-            return View(await gIPPRJTraiteurAppContext.ToListAsync());
+            var users = await _rolesService.GetUsersIdentity();
+            return View(users);
+            /* var gIPPRJTraiteurAppContext = _context.CreateRolesViewModel.Include(c => c.IdentityUser);
+             return View(await gIPPRJTraiteurAppContext.ToListAsync());*/
         }
 
         // GET: CreateRolesViewModels/Details/5
@@ -62,7 +66,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,IdentityUserId")] CreateRolesViewModel createRolesViewModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Email,IdentityUserId,Roles")] CreateRolesViewModel createRolesViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +100,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,IdentityUserId")] CreateRolesViewModel createRolesViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,IdentityUserId,Roles")] CreateRolesViewModel createRolesViewModel)
         {
             if (id != createRolesViewModel.Id)
             {
