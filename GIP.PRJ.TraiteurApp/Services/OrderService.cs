@@ -17,7 +17,7 @@ namespace GIP.PRJ.TraiteurApp.Services
         {
             try
             {
-                return await _context.Orders.ToListAsync();
+                return await _context.Orders.Include(o => o.Customer).ToListAsync();
             }
             catch (Exception ex)
             {

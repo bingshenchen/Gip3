@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using GIP.PRJ.TraiteurApp.Models;
+using GIP.PRJ.TraiteurApp.ViewModels.Admin;
 
 namespace GIP.PRJ.TraiteurApp.Models
 {
@@ -28,5 +28,7 @@ namespace GIP.PRJ.TraiteurApp.Models
                 new MenuItemCategory { Id = -3, Name = "Alcoholische dranken", VAT = 21}
                 );
         }
+
+        public DbSet<CreateRolesViewModel> CreateRolesViewModel { get; set; }
     }
 }

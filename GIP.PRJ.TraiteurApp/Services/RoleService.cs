@@ -1,5 +1,4 @@
-﻿using GIP.PRJ.TraiteurApp.Data;
-using GIP.PRJ.TraiteurApp.Models;
+﻿using GIP.PRJ.TraiteurApp.Models;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +14,8 @@ namespace GIP.PRJ.TraiteurApp.Services
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        GIPPRJTraiteurAppContext _appContext;
-        public RoleService(GIPPRJTraiteurAppContext traiteurAppContext, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
+        public RoleService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
         {
-            _appContext = traiteurAppContext;
             _userManager = userManager;
             _roleManager = roleManager;
         }

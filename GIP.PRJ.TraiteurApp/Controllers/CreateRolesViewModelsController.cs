@@ -5,10 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GIP.PRJ.TraiteurApp.Data;
 using GIP.PRJ.TraiteurApp.Models;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Identity.Client;
+using GIP.PRJ.TraiteurApp.Services;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
+using GIP.PRJ.TraiteurApp.ViewModels.Admin;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
@@ -17,23 +22,33 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IRolesService _rolesService;
-        private readonly GIPPRJTraiteurAppContext _context;
+        private readonly TraiteurAppDbContext _context;
 
-        public CreateRolesViewModelsController(GIPPRJTraiteurAppContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public CreateRolesViewModelsController(TraiteurAppDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IRolesService rolesService)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+            _rolesService = rolesService;
         }
 
         // GET: CreateRolesViewModels
         public async Task<IActionResult> Index()
         {
+            /*var traiteurAppDbContext = _context.CreateRolesViewModel.Include(c => c.IdentityUser);
+            return View(await traiteurAppDbContext.ToListAsync());*/
+
             var users = await _rolesService.GetUsersIdentity();
             return View(users);
-            /* var gIPPRJTraiteurAppContext = _context.CreateRolesViewModel.Include(c => c.IdentityUser);
-             return View(await gIPPRJTraiteurAppContext.ToListAsync());*/
         }
+
+        /*public async Task<IActionResult> Index()
+        {
+            var users = await _rolesService.GetUsersIdentity();
+            return View(users);
+            *//* var gIPPRJTraiteurAppContext = _context.CreateRolesViewModel.Include(c => c.IdentityUser);
+             return View(await gIPPRJTraiteurAppContext.ToListAsync());*//*
+        }*/
 
         // GET: CreateRolesViewModels/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -57,8 +72,9 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: CreateRolesViewModels/Create
         public IActionResult Create()
         {
-            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id");
-            return View();
+            CreateRolesViewModel vm = new CreateRolesViewModel();
+            vm.Roles = _context.Roles.ToList();
+            return View(vm);
         }
 
         // POST: CreateRolesViewModels/Create
@@ -66,16 +82,21 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Email,IdentityUserId,Roles")] CreateRolesViewModel createRolesViewModel)
+        public async Task<IActionResult> Create([Bind("Email,Password,RoleId")] CreateRolesViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(createRolesViewModel);
-                await _context.SaveChangesAsync();
+                var newUser = new IdentityUser(vm.Email);
+                IdentityResult identityResult = await _userManager.CreateAsync(newUser, "Password");
+                if (identityResult.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(newUser, vm.RoleName);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", createRolesViewModel.IdentityUserId);
-            return View(createRolesViewModel);
+            vm.Roles = _context.Roles.ToList();
+            return View(vm);
         }
 
         // GET: CreateRolesViewModels/Edit/5
@@ -91,7 +112,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", createRolesViewModel.IdentityUserId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", createRolesViewModel.IdentityUserId);
             return View(createRolesViewModel);
         }
 
@@ -127,7 +148,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Set<IdentityUser>(), "Id", "Id", createRolesViewModel.IdentityUserId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", createRolesViewModel.IdentityUserId);
             return View(createRolesViewModel);
         }
 
@@ -157,7 +178,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         {
             if (_context.CreateRolesViewModel == null)
             {
-                return Problem("Entity set 'GIPPRJTraiteurAppContext.CreateRolesViewModel'  is null.");
+                return Problem("Entity set 'TraiteurAppDbContext.CreateRolesViewModel'  is null.");
             }
             var createRolesViewModel = await _context.CreateRolesViewModel.FindAsync(id);
             if (createRolesViewModel != null)

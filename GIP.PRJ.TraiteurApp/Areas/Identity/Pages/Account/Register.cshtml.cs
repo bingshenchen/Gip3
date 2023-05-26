@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using GIP.PRJ.TraiteurApp.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -97,6 +98,7 @@ namespace GIP.PRJ.TraiteurApp.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            public string Address { get; set; }
         }
 
 
@@ -120,6 +122,8 @@ namespace GIP.PRJ.TraiteurApp.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    Customer customer = new Customer { Address = Input.Address, IdentityUserId = user.Id };
+                    await _userManager.AddToRoleAsync(user, "Customer");
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
