@@ -3,8 +3,8 @@ using GIP.PRJ.TraiteurApp.Services;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using GIP.PRJ.TraiteurApp.Data;
+using GIP.PRJ.TraiteurApp.BackgroundServices;
+using GIP.PRJ.TraiteurApp.BackgroundServices.Interfaces;
 
 /* Opdracht:                Gip3 TraiteurApp
  * Groep:                   21

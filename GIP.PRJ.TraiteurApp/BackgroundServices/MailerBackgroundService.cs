@@ -1,7 +1,7 @@
-﻿using GIP.PRJ.TraiteurApp.Services.Interfaces;
+﻿using GIP.PRJ.TraiteurApp.BackgroundServices.Interfaces;
 using System.Threading;
 
-namespace GIP.PRJ.TraiteurApp.Services
+namespace GIP.PRJ.TraiteurApp.BackgroundServices
 {
     public class MailerBackgroundService : BackgroundService
     {

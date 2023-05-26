@@ -1,4 +1,4 @@
-﻿namespace GIP.PRJ.TraiteurApp.Services.Interfaces
+﻿namespace GIP.PRJ.TraiteurApp.BackgroundServices.Interfaces
 {
     public interface IMailerWorkerService
     {
