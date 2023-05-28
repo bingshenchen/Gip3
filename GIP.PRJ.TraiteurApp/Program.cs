@@ -20,8 +20,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages()
     .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver());
-builder.Services.AddDbContext<GIPPRJTraiteurAppContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("GIPPRJTraiteurAppContext") ?? throw new InvalidOperationException("Connection string 'GIPPRJTraiteurAppContext' not found.")));
 // Add Kendo UI services to the services container
 builder.Services.AddKendo();
 

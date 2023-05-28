@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using GIP.PRJ.TraiteurApp.Services.DTO;
+using GIP.PRJ.TraiteurApp.ViewModels.Orders;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
@@ -401,7 +402,19 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 var orders = await _orderService.GetAllOrdersAsync();
 
-                return Json(orders.ToDataSourceResult(request));
+                List<IndexViewModel> vmList = new List<IndexViewModel>();
+                foreach (var order in orders)
+                {
+                    vmList.Add(new IndexViewModel
+                    {
+                        CustomerName = order.Customer.Name,
+                        OrderedOn = order.OrderedOn,
+                        TimeSlot = order.TimeSlot
+                    });
+
+                }
+
+                return Json(vmList.ToDataSourceResult(request));
             }
             catch (Exception)
             {

@@ -1,4 +1,5 @@
 ﻿@using Kendo.Mvc.UI;
+@using GIP.PRJ.TraiteurApp.ViewModels.Orders;
 
 @{
     ViewData["Title"] = "Overzicht bestellingen";
@@ -12,17 +13,17 @@
 
 <div class="form-group">
     @(
-        Html.Kendo().Grid<Order>()
+        Html.Kendo().Grid<IndexViewModel>()
         .Name("grid")
         .Columns(columns =>
         {
             columns.Bound(p => p.Id).Hidden();
             columns.Bound(p => p.OrderedOn);
             columns.Bound(p => p.TimeSlot);
-            columns.Bound(p => p.Total);
+            @*columns.Bound(p => p.Total);
             columns.Bound(p => p.CustomerId);
             columns.Bound(p => p.CookId);
-            columns.Bound(p => p.Status);
+            columns.Bound(p => p.Status);*@
             columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
             "#if(!IsPaid) {#" +
             "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
