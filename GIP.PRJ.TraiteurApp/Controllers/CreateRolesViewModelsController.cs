@@ -59,8 +59,8 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             }
 
             var createRolesViewModel = await _context.CreateRolesViewModel
-                .Include(c => c.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (createRolesViewModel == null)
             {
                 return NotFound();
@@ -112,7 +112,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", createRolesViewModel.IdentityUserId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View(createRolesViewModel);
         }
 
@@ -148,7 +148,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", createRolesViewModel.IdentityUserId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View(createRolesViewModel);
         }
 
@@ -161,8 +161,8 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             }
 
             var createRolesViewModel = await _context.CreateRolesViewModel
-                .Include(c => c.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (createRolesViewModel == null)
             {
                 return NotFound();

@@ -15,6 +15,26 @@ namespace GIP.PRJ.TraiteurApp.Services
         {
             try
             {
+                DateTime currentLocalTime = DateTime.Now;
+
+                if (currentLocalTime >= cook.HolidayStartTime && currentLocalTime <= cook.HolidayEndTime)
+                {
+                    cook.IsHoliday = true;
+                }
+                else
+                {
+                    cook.IsHoliday = false;
+                }
+
+                if (currentLocalTime >= cook.SickStartTime && currentLocalTime <= cook.SickEndTime)
+                {
+                    cook.IsSick = true;
+                }
+                else
+                {
+                    cook.IsSick = false;
+                }
+
                 _context.Cooks.Add(cook);
                 await _context.SaveChangesAsync();
             }

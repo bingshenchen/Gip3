@@ -28,6 +28,31 @@
                 <select asp-for="IdentityUserId" class="form-control" asp-items="ViewBag.IdentityUserId"></select>
                 <span asp-validation-for="IdentityUserId" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="HolidayStartTime" class="control-label"></label>
+                <input asp-for="HolidayStartTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="HolidayStartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HolidayEndTime" class="control-label"></label>
+                <input asp-for="HolidayEndTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="HolidayEndTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SickStartTime" class="control-label"></label>
+                <input asp-for="SickStartTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="SickStartTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SickEndTime" class="control-label"></label>
+                <input asp-for="SickEndTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="SickEndTime" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
