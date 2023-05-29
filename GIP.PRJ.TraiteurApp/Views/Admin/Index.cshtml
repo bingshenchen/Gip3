@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using GIP.PRJ.TraiteurApp.ViewModels.Admin
+@using Kendo.Mvc.UI
+@model IEnumerable<GroupedViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<CreateRolesViewModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id);
+            columns.Bound(p => p.Email);
+            columns.Bound(p => p.RoleName);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Edit", "Admin") +
+            "/#= Id #'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Details", "Admin") +
+            "/#= Id #'" + "><span class='k-icon k-i-info-circle'></span>Details</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Delete", "Admin") +
+            "/#= Id #'" + "><span class='k-icon k-i-delete'></span>Verwijderen</a>"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetRoles", "Admin"))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>
+
+

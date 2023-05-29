@@ -15,14 +15,16 @@ namespace GIP.PRJ.TraiteurApp.Services
         //A role can be assigned to many users
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly TraiteurAppDbContext _context;
 
-        public RoleService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
+        public RoleService(TraiteurAppDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager) 
         {
+            _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
         }
         //return new List<IEnumerable<CreateRolesViewModel>>(await _userManager.GetUsersInRoleAsync(userId));
-        public async Task<IEnumerable<CreateRolesViewModel>> GetUsersIdentity()
+    /*    public async Task<IEnumerable<CreateRolesViewModel>> GetUsersIdentity()
         {
             try
             {
@@ -41,8 +43,8 @@ namespace GIP.PRJ.TraiteurApp.Services
                 throw new Exception($"Users data corrupted", ex);
             }
         }
-
-        public async Task<List<IdentityRole>> GetUsersRoles()
+*/
+        /*public async Task<List<IdentityRole>> GetUsersRoles()
         {
             try
             {
@@ -57,8 +59,47 @@ namespace GIP.PRJ.TraiteurApp.Services
             }
             
             //return new List<IEnumerable<CreateRolesViewModel>>(await _roleManager.GetRoleNameAsync(identityRole));
+        }*/
+
+        public async Task GetUsersRoles()
+        {
+            try
+            {
+                
+
+               
+                /*var rolesz = _roleManager.Roles;
+                return await rolesz.ToListAsync();*/
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"User Roles Corrupted", ex);
+            }
         }
-        public Task UpdateUserAsync(IdentityUser identityuser)
+
+        public Task<IEnumerable<CreateRolesViewModel>> GetAllUsersIdentity()
+        {
+            throw null;
+        }
+
+        public Task<CreateRolesViewModel> GetUserByIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<CreateRolesViewModel> GetUserbyId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CreateUserRole(CreateRolesViewModel createRoles)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateUserAsync(CreateRolesViewModel createRoles)
         {
             throw new NotImplementedException();
         }
@@ -68,7 +109,8 @@ namespace GIP.PRJ.TraiteurApp.Services
             throw new NotImplementedException();
         }
 
-       
+
+
 
         /*public async Task UserRoles()
         {

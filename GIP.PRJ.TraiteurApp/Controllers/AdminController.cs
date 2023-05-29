@@ -17,14 +17,14 @@ using GIP.PRJ.TraiteurApp.ViewModels.Admin;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
-    public class CreateRolesViewModelsController : Controller
+    public class AdminController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IRolesService _rolesService;
         private readonly TraiteurAppDbContext _context;
 
-        public CreateRolesViewModelsController(TraiteurAppDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IRolesService rolesService)
+        public AdminController(TraiteurAppDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IRolesService rolesService)
         {
             _context = context;
             _userManager = userManager;
@@ -37,18 +37,29 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         {
             /*var traiteurAppDbContext = _context.CreateRolesViewModel.Include(c => c.IdentityUser);
             return View(await traiteurAppDbContext.ToListAsync());*/
+            var role = (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
+            var admins = await _context.Users.ToListAsync();
 
-            var users = await _rolesService.GetUsersIdentity();
-            return View(users);
+            var adminVM = admins.Select(user => new CreateRolesViewModel
+            {
+                Email = user.Email,
+                RoleName = "Administrator"
+
+            }).ToList();
+
+            var role2 = (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
+            var cooks = await _context.Users.ToListAsync();
+
+            var cookVM = cooks.Select(cook => new CreateRolesViewModel
+            {
+                Email = cook.Email,
+                RoleName = "Cook"
+
+            }).ToList();
+
+            var model = new GroupedViewModel { Admins = adminVM, Users = cookVM };
+            return View(model);
         }
-
-        /*public async Task<IActionResult> Index()
-        {
-            var users = await _rolesService.GetUsersIdentity();
-            return View(users);
-            *//* var gIPPRJTraiteurAppContext = _context.CreateRolesViewModel.Include(c => c.IdentityUser);
-             return View(await gIPPRJTraiteurAppContext.ToListAsync());*//*
-        }*/
 
         // GET: CreateRolesViewModels/Details/5
         public async Task<IActionResult> Details(int? id)
