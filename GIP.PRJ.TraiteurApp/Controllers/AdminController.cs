@@ -40,7 +40,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             var role = (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
             var admins = await _context.Users.ToListAsync();
 
-            var adminVM = admins.Select(user => new CreateRolesViewModel
+            var adminVM = admins.Select(user => new UserViewModel
             {
                 Email = user.Email,
                 RoleName = "Administrator"
@@ -50,7 +50,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             var role2 = (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
             var cooks = await _context.Users.ToListAsync();
 
-            var cookVM = cooks.Select(cook => new CreateRolesViewModel
+            var cookVM = cooks.Select(cook => new UserViewModel
             {
                 Email = cook.Email,
                 RoleName = "Cook"
@@ -83,7 +83,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: CreateRolesViewModels/Create
         public IActionResult Create()
         {
-            CreateRolesViewModel vm = new CreateRolesViewModel();
+            UserViewModel vm = new UserViewModel();
             vm.Roles = _context.Roles.ToList();
             return View(vm);
         }
@@ -93,7 +93,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Email,Password,RoleId")] CreateRolesViewModel vm)
+        public async Task<IActionResult> Create([Bind("Email,Password,RoleId")] UserViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -132,7 +132,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,IdentityUserId,Roles")] CreateRolesViewModel createRolesViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Email,IdentityUserId,Roles")] UserViewModel createRolesViewModel)
         {
             if (id != createRolesViewModel.Id)
             {

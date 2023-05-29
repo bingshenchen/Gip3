@@ -2,8 +2,8 @@
 {
     public class GroupedViewModel
     {
-        public List<CreateRolesViewModel> Users { get; set; }
-        public List<CreateRolesViewModel> Admins { get; set; }
+        public List<UserViewModel> Users { get; set; }
+        public List<UserViewModel> Admins { get; set; }
 
     }
 }

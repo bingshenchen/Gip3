@@ -29,6 +29,6 @@ namespace GIP.PRJ.TraiteurApp.Models
                 );
         }
 
-        public DbSet<CreateRolesViewModel> CreateRolesViewModel { get; set; }
+        public DbSet<UserViewModel> CreateRolesViewModel { get; set; }
     }
 }

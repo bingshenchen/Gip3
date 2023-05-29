@@ -79,27 +79,27 @@ namespace GIP.PRJ.TraiteurApp.Services
             }
         }
 
-        public Task<IEnumerable<CreateRolesViewModel>> GetAllUsersIdentity()
+        public Task<IEnumerable<UserViewModel>> GetAllUsersIdentity()
         {
             throw null;
         }
 
-        public Task<CreateRolesViewModel> GetUserByIdAsync(string id)
+        public Task<UserViewModel> GetUserByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CreateRolesViewModel> GetUserbyId(int id)
+        public Task<UserViewModel> GetUserbyId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task CreateUserRole(CreateRolesViewModel createRoles)
+        public Task CreateUserRole(UserViewModel createRoles)
         {
             throw new NotImplementedException();
         }
 
-        public Task UpdateUserAsync(CreateRolesViewModel createRoles)
+        public Task UpdateUserAsync(UserViewModel createRoles)
         {
             throw new NotImplementedException();
         }

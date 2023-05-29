@@ -8,11 +8,11 @@ namespace GIP.PRJ.TraiteurApp.Services.Interfaces
     public interface IRolesService
     {
         Task GetUsersRoles();
-        Task<IEnumerable<CreateRolesViewModel>> GetAllUsersIdentity();
-        Task<CreateRolesViewModel> GetUserByIdAsync(string id);
-        Task<CreateRolesViewModel> GetUserbyId(int id);
-        Task CreateUserRole(CreateRolesViewModel createRoles);
-        Task UpdateUserAsync(CreateRolesViewModel createRoles);
+        Task<IEnumerable<UserViewModel>> GetAllUsersIdentity();
+        Task<UserViewModel> GetUserByIdAsync(string id);
+        Task<UserViewModel> GetUserbyId(int id);
+        Task CreateUserRole(UserViewModel createRoles);
+        Task UpdateUserAsync(UserViewModel createRoles);
         Task DeleteUserAsync(int id);
     }
 }

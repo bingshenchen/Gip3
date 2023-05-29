@@ -6,12 +6,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GIP.PRJ.TraiteurApp.ViewModels.Admin
 {
-    public class CreateRolesViewModel
+    public class UserViewModel
     {
         public int Id { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string RoleName { get; set; }
-        public List<IdentityRole> Roles { get; set; }
+/*        public List<IdentityRole> Roles { get; set; }*/
     }
 }
