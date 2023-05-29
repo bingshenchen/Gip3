@@ -1,4 +1,6 @@
-﻿@model CreateRolesViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using GIP.PRJ.TraiteurApp.ViewModels.Admin
+@model GIP.PRJ.TraiteurApp.ViewModels.Admin.CreateRolesViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -29,10 +31,10 @@
             @Html.DisplayFor(model => model.Roles)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityUser)
+            @Html.DisplayNameFor(model => model.RoleName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdentityUser.Id)
+            @Html.DisplayFor(model => model.RoleName)
         </dd>
     </dl>
 </div>

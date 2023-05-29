@@ -2,6 +2,8 @@
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using GIP.PRJ.TraiteurApp.ViewModels;
+using GIP.PRJ.TraiteurApp.ViewModels.Admin;
 using System.Linq;
 
 namespace GIP.PRJ.TraiteurApp.Services
@@ -19,20 +21,25 @@ namespace GIP.PRJ.TraiteurApp.Services
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        public async Task<List<IdentityUser>> GetUsersIdentity()
+        //return new List<IEnumerable<CreateRolesViewModel>>(await _userManager.GetUsersInRoleAsync(userId));
+        public async Task<IEnumerable<CreateRolesViewModel>> GetUsersIdentity()
         {
-            //return new List<IEnumerable<CreateRolesViewModel>>(await _userManager.GetUsersInRoleAsync(userId));
             try
             {
-                var usersz = _userManager.Users;
-                return await usersz.ToListAsync();
+                var usersz = await _userManager.Users.ToListAsync();
+                var viewModels = usersz.Select(u => new CreateRolesViewModel
+                {
+                    Id = int.TryParse(u.Id, out int id) ? id : 0,
+                    Name = u.UserName,
+                    Email = u.Email
+                });
+
+                return viewModels;
             }
             catch (Exception ex)
             {
-                
                 throw new Exception($"Users data corrupted", ex);
             }
-
         }
 
         public async Task<List<IdentityRole>> GetUsersRoles()

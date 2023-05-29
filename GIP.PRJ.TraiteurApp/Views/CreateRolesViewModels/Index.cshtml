@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CreateRolesViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@using GIP.PRJ.TraiteurApp.ViewModels.Admin
+@model IEnumerable<CreateRolesViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,7 +24,7 @@
                 @Html.DisplayNameFor(model => model.Roles)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdentityUser)
+                @Html.DisplayNameFor(model => model.RoleName)
             </th>
             <th></th>
         </tr>
@@ -40,7 +42,7 @@
                 @Html.DisplayFor(modelItem => item.Roles)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdentityUser.Id)
+                @Html.DisplayFor(modelItem => item.RoleName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

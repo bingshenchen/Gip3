@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\Cooks\**" />
+    <Content Remove="ViewModels\Cooks\**" />
+    <EmbeddedResource Remove="ViewModels\Cooks\**" />
+    <None Remove="ViewModels\Cooks\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\Interfaces\IMailerCustomerService.cs" />
+    <Compile Remove="Services\MailerCustomerService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.3" />
     <PackageReference Include="microsoft.aspnetcore.identity.entityframeworkcore" Version="7.0.5" />
     <PackageReference Include="microsoft.aspnetcore.identity.ui" Version="7.0.5" />
@@ -26,8 +38,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Cooks\" />
     <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Services\Interfaces\IMailerCustomerService.cs" />
+    <None Include="Services\MailerCustomerService.cs" />
   </ItemGroup>
 
 </Project>

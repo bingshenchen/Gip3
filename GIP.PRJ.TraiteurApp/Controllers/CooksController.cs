@@ -99,7 +99,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ChefName,YearsOfExperience,IdentityUserId")] Cook cook)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ChefName,YearsOfExperience,IdentityUserId,HolidayStartTime,HolidayEndTime,SickStartTime,SickEndTime")] Cook cook)
         {
             if (id != cook.Id)
             {

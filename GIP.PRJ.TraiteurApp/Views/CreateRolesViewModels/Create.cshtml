@@ -1,6 +1,6 @@
-﻿@    using Microsoft.AspNetCore.Identity;
-    using GIP.PRJ.TraiteurApp.ViewModels;
-@model CreateRolesViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using GIP.PRJ.TraiteurApp.ViewModels.Admin
+@model GIP.PRJ.TraiteurApp.ViewModels.Admin.CreateRolesViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -41,5 +41,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
