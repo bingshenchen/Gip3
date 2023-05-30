@@ -13,6 +13,6 @@ namespace GIP.PRJ.TraiteurApp.Services.Interfaces
         Task<UserViewModel> GetUserbyId(int id);
         Task CreateUserRole(UserViewModel createRoles);
         Task UpdateUserAsync(UserViewModel createRoles);
-        Task DeleteUserAsync(int id);
+        Task DeleteUserAsync(string id);
     }
 }
