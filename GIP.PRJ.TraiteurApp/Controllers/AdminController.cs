@@ -39,7 +39,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         public async Task<IActionResult> Index()
         {
             var role = (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
-            var admins = await _userManager.Users.ToListAsync();
+            var admins = await _context.Users.ToListAsync();
 
             var adminVM = admins.Select(user => new UserViewModel
             {
@@ -49,7 +49,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             }).ToList();
 
             var role2 = (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
-            var cooks = await _userManager.Users.ToListAsync();
+            var cooks = await _context.Users.ToListAsync();
 
             var cookVM = cooks.Select(cook => new UserViewModel
             {
@@ -58,7 +58,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
             }).ToList();
 
-            var model = new GroupedViewModel { Admins = adminVM, Users = cookVM };
+            var model = adminVM.Concat(cookVM).ToList();
             return View(model);
         }
         public async Task<IActionResult> Details(string id)
