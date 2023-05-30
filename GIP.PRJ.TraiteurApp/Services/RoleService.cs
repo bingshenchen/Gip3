@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using GIP.PRJ.TraiteurApp.ViewModels;
 using GIP.PRJ.TraiteurApp.ViewModels.Admin;
 using System.Linq;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace GIP.PRJ.TraiteurApp.Services
 {
@@ -23,68 +24,18 @@ namespace GIP.PRJ.TraiteurApp.Services
             _userManager = userManager;
             _roleManager = roleManager;
         }
-        //return new List<IEnumerable<CreateRolesViewModel>>(await _userManager.GetUsersInRoleAsync(userId));
-    /*    public async Task<IEnumerable<CreateRolesViewModel>> GetUsersIdentity()
-        {
-            try
-            {
-                var usersz = await _userManager.Users.ToListAsync();
-                var viewModels = usersz.Select(u => new CreateRolesViewModel
-                {
-                    Id = int.TryParse(u.Id, out int id) ? id : 0,
-                    Name = u.UserName,
-                    Email = u.Email
-                });
 
-                return viewModels;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Users data corrupted", ex);
-            }
+        public Task CreateUserRole(UserViewModel createRoles)
+        {
+            throw new NotImplementedException();
         }
-*/
-        /*public async Task<List<IdentityRole>> GetUsersRoles()
+
+        public Task DeleteUserAsync(string id)
         {
-            try
-            {
-                var rolesz = _roleManager.Roles;
-                return await rolesz.ToListAsync();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"User Roles Corrupted", ex);
-            }
-            
-            //return new List<IEnumerable<CreateRolesViewModel>>(await _roleManager.GetRoleNameAsync(identityRole));
-        }*/
-
-        public async Task GetUsersRoles()
-        {
-            try
-            {
-                
-
-               
-                /*var rolesz = _roleManager.Roles;
-                return await rolesz.ToListAsync();*/
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception($"User Roles Corrupted", ex);
-            }
+            throw new NotImplementedException();
         }
 
         public Task<IEnumerable<UserViewModel>> GetAllUsersIdentity()
-        {
-            throw null;
-        }
-
-        public Task<UserViewModel> GetUserByIdAsync(string id)
         {
             throw new NotImplementedException();
         }
@@ -94,7 +45,12 @@ namespace GIP.PRJ.TraiteurApp.Services
             throw new NotImplementedException();
         }
 
-        public Task CreateUserRole(UserViewModel createRoles)
+        public Task<UserViewModel> GetUserByIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetUsersRoles()
         {
             throw new NotImplementedException();
         }
@@ -103,30 +59,5 @@ namespace GIP.PRJ.TraiteurApp.Services
         {
             throw new NotImplementedException();
         }
-
-        public Task DeleteUserAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
-        /*public async Task UserRoles()
-        {
-            var userRoles = (from user in appContext.CreateRolesViewModel
-                             select new
-                             {
-                                 UserID = user.Id,
-                                 UserName = user.Name,
-                                 UserEmail = user.Email,
-                                 Rolenames = (from userRoles in user.RoleNames 
-                                              join role in appContext.CreateRolesViewModel on userRoles.Rol)
-
-
-
-                             });
-
-        }*/
     }
 }
