@@ -7,25 +7,57 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GIP.PRJ.TraiteurApp.Models;
 using GIP.PRJ.TraiteurApp.ViewModels.Admin;
+using GIP.PRJ.TraiteurApp.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Identity.Client;
+using GIP.PRJ.TraiteurApp.Services;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
     public class AdminController : Controller
     {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IRolesService _rolesService;
         private readonly TraiteurAppDbContext _context;
 
-        public AdminController(TraiteurAppDbContext context)
+        public AdminController(TraiteurAppDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IRolesService rolesService)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _rolesService = rolesService;
         }
 
-        // GET: Admin
+        // GET: CreateRolesViewModels
         public async Task<IActionResult> Index()
         {
-              return View(await _context.CreateRolesViewModel.ToListAsync());
-        }
+            var role = (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
+            var admins = await _context.Users.ToListAsync();
 
-        // GET: Admin/Details/5
+            var adminVM = admins.Select(user => new UserViewModel
+            {
+                Email = user.Email,
+                RoleName = "Administrator"
+
+            }).ToList();
+
+            var role2 = (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
+            var cooks = await _context.Users.ToListAsync();
+
+            var cookVM = cooks.Select(cook => new UserViewModel
+            {
+                Email = cook.Email,
+                RoleName = "Cook"
+
+            }).ToList();
+
+            var model = new GroupedViewModel { Admins = adminVM, Users = cookVM };
+            return View(model);
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.CreateRolesViewModel == null)
@@ -33,36 +65,42 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                 return NotFound();
             }
 
-            var userViewModel = await _context.CreateRolesViewModel
+            var createRolesViewModel = await _context.CreateRolesViewModel
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userViewModel == null)
+
+            if (createRolesViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(userViewModel);
+            return View(createRolesViewModel);
         }
 
-        // GET: Admin/Create
+        // GET: CreateRolesViewModels/Create
         public IActionResult Create()
         {
-            return View();
+            UserViewModel user = new UserViewModel();
+            user.Roles = _context.Roles.ToList();
+            return View(user);
         }
 
-        // POST: Admin/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,RoleName")] UserViewModel userViewModel)
+        public async Task<IActionResult> Create([Bind("Email,Password,RoleId")] UserViewModel uv)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userViewModel);
-                await _context.SaveChangesAsync();
+                var newUser = new IdentityUser(uv.Email);
+                IdentityResult identityResult = await _userManager.CreateAsync(newUser, "Password");
+                if (identityResult.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(newUser, uv.RoleName);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(userViewModel);
+            uv.Roles = _context.Roles.ToList();
+            return View(uv);
         }
 
         // GET: Admin/Edit/5
