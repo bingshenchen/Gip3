@@ -61,22 +61,18 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             var model = adminVM.Concat(cookVM).ToList();
             return View(model);
         }
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
-            if (id == null || _context.CreateRolesViewModel == null)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            var createRolesViewModel = await _context.CreateRolesViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (createRolesViewModel == null)
+            var detailsusers = await _context.Users.ToListAsync();
+            if (detailsusers == null)
             {
-                return NotFound();
+                ModelState.AddModelError("", "Details cannot be found");
             }
-
-            return View(createRolesViewModel);
+            return View(detailsusers);
         }
 
         // GET: CreateRolesViewModels/Create
@@ -109,21 +105,19 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: Admin/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
-            try
+            if (id == null)
             {
-                var user = await _userManager.FindByIdAsync(id);
-                if (user != null)
-                {
-                    return View(user);
-                }
-                else
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+                return NotFound();
             }
-            catch (Exception ex)
+
+            var user = await _userManager.FindByIdAsync(id);
+            if (user != null)
             {
-                throw new Exception($"Error", ex);
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
             }
         }
 
@@ -224,6 +218,24 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         private bool UserViewModelExists(int id)
         {
           return _context.CreateRolesViewModel.Any(e => e.Id == id);
+        }
+
+        public IActionResult GetAdmin([DataSourceRequest] DataSourceRequest request)
+        {
+            var adminList = _context.Users.Select(user => new UserViewModel
+            {
+                Email = user.Email,
+                RoleName = _context.UserRoles
+                    .Where(ur => ur.UserId == user.Id)
+                    .Join(_context.Roles,
+                        userRole => userRole.RoleId,
+                        role => role.Id,
+                        (userRole, role) => role.Name)
+                    .FirstOrDefault()
+            });
+
+            var result = adminList.ToDataSourceResult(request);
+            return Json(result);
         }
     }
 }

@@ -1,41 +1,44 @@
 ﻿@model IEnumerable<GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel>
-
+@using GIP.PRJ.TraiteurApp.ViewModels.Admin;
+@using Kendo.Mvc.UI
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Overzicht Users</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create new users</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RoleName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoleName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<UserViewModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id);
+            columns.Bound(p => p.Email);
+            columns.Bound(p => p.RoleName);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Edit", "Admin") +
+            "/#= Id #'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Details", "Admin") +
+            "/#= Id #'" + "><span class='k-icon k-i-info-circle'></span>Details</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Delete", "Admin") +
+            "/#= Id #'" + "><span class='k-icon k-i-delete'></span>Verwijderen</a>"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetAdmin", "Admin"))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>

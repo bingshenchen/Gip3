@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using GIP.PRJ.TraiteurApp.Services;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
@@ -20,12 +21,14 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         private readonly ICustomerService _customerService;
         private readonly IOrderService _orderService;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IMailService _mailService;
 
-        public CustomersController(ICustomerService customerService, IOrderService orderService, UserManager<IdentityUser> userManager)
+        public CustomersController(ICustomerService customerService, IOrderService orderService, UserManager<IdentityUser> userManager, IMailService mailService)
         {
             _customerService = customerService;
             _orderService = orderService;
             _userManager = userManager;
+            _mailService = mailService;
         }
 
         // GET: Customers
@@ -78,6 +81,18 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    // Hier kan switch of if gebruiken voor de verschillende klanten 
+                    var mailContent = "Hallo";
+                    _mailService.SendMail("lekkerbekgip3@outlook.com", customer.EmailAddress, "Lekkerbek - Bevestiging aanmelding (klant " + customer.Name + ")",
+                         mailContent);
+                    ViewBag.InfoMessage = "De mail werd correct verstuurd";
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = "Fout tijdens versturen mail (" + ex.Message + ")";
+                }
                 await _customerService.CreateCustomerAsync(customer);
                 return RedirectToAction(nameof(Index));
             }
