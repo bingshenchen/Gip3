@@ -14,6 +14,7 @@ using Microsoft.Identity.Client;
 using GIP.PRJ.TraiteurApp.Services;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
@@ -21,21 +22,23 @@ namespace GIP.PRJ.TraiteurApp.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private IPasswordHasher<IdentityUser> _passwordHasher;
         private readonly IRolesService _rolesService;
         private readonly TraiteurAppDbContext _context;
 
-        public AdminController(TraiteurAppDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IRolesService rolesService)
+        public AdminController(TraiteurAppDbContext context, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IRolesService rolesService, IPasswordHasher<IdentityUser> passwordHasher)
         {
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
             _rolesService = rolesService;
+            _passwordHasher = passwordHasher;
         }
 
         // GET: CreateRolesViewModels
         public async Task<IActionResult> Index()
         {
-            var role = (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
+            var role = await (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
             var admins = await _context.Users.ToListAsync();
 
             var adminVM = admins.Select(user => new UserViewModel
@@ -45,7 +48,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
             }).ToList();
 
-            var role2 = (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
+            var role2 = await (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
             var cooks = await _context.Users.ToListAsync();
 
             var cookVM = cooks.Select(cook => new UserViewModel
@@ -55,7 +58,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
             }).ToList();
 
-            var model = new GroupedViewModel { Admins = adminVM, Users = cookVM };
+            var model = adminVM.Concat(cookVM).ToList();
             return View(model);
         }
         public async Task<IActionResult> Details(int? id)
@@ -104,19 +107,24 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         }
 
         // GET: Admin/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
-            if (id == null || _context.CreateRolesViewModel == null)
+            try
             {
-                return NotFound();
+                var user = await _userManager.FindByIdAsync(id);
+                if (user != null)
+                {
+                    return View(user);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
-
-            var userViewModel = await _context.CreateRolesViewModel.FindAsync(id);
-            if (userViewModel == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                throw new Exception($"Error", ex);
             }
-            return View(userViewModel);
         }
 
         // POST: Admin/Edit/5
@@ -124,71 +132,93 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,RoleName")] UserViewModel userViewModel)
+        public async Task<IActionResult> Edit(string id, string email, string password)
         {
-            if (id != userViewModel.Id)
+            var edituser = await _userManager.FindByIdAsync(id);
+            if (edituser != null)
             {
-                return NotFound();
-            }
+                if (!string.IsNullOrEmpty(email))
+                {
+                    edituser.Email = email;
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(userViewModel);
-                    await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!UserViewModelExists(userViewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Email cannot be empty");
                 }
-                return RedirectToAction(nameof(Index));
+
+                if (!string.IsNullOrEmpty(password))
+                {
+                    edituser.PasswordHash = _passwordHasher.HashPassword(edituser, password);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Password required");
+                }
+
+                if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+                {
+                    IdentityResult identityResult = await _userManager.UpdateAsync(edituser);
+                    if (identityResult.Succeeded)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    return NotFound();
+                }
+
             }
-            return View(userViewModel);
+            else
+            {
+                ModelState.AddModelError("", "User not Found");
+
+            }
+            return View(edituser);
         }
 
         // GET: Admin/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (id == null || _context.CreateRolesViewModel == null)
+            try
             {
-                return NotFound();
+                var deleteuser = await _userManager.FindByIdAsync(id);
+                if (deleteuser != null)
+                {
+                    return View(deleteuser);
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }
             }
-
-            var userViewModel = await _context.CreateRolesViewModel
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (userViewModel == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                throw new Exception($"Error", ex);
             }
-
-            return View(userViewModel);
         }
 
         // POST: Admin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            if (_context.CreateRolesViewModel == null)
+            var deleteuser = await _userManager.FindByIdAsync(id); 
+            if (deleteuser != null) 
             {
-                return Problem("Entity set 'TraiteurAppDbContext.CreateRolesViewModel'  is null.");
+                IdentityResult identityResult = await _userManager.DeleteAsync(deleteuser);
+                if (identityResult.Succeeded)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
-            var userViewModel = await _context.CreateRolesViewModel.FindAsync(id);
-            if (userViewModel != null)
+            else
             {
-                _context.CreateRolesViewModel.Remove(userViewModel);
+                ModelState.AddModelError("", "User Not Found");
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View(deleteuser);
         }
 
         private bool UserViewModelExists(int id)

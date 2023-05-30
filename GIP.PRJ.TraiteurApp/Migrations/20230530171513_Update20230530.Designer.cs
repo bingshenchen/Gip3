@@ -4,6 +4,7 @@ using GIP.PRJ.TraiteurApp.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIP.PRJ.TraiteurApp.Migrations
 {
     [DbContext(typeof(TraiteurAppDbContext))]
-    partial class TraiteurAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230530171513_Update20230530")]
+    partial class Update20230530
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
