@@ -38,8 +38,8 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: CreateRolesViewModels
         public async Task<IActionResult> Index()
         {
-            var role = await (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
-            var admins = await _context.Users.ToListAsync();
+            var role = (from r in _context.Roles where r.Name.Contains("Administrator") select r).FirstOrDefaultAsync();
+            var admins = await _userManager.Users.ToListAsync();
 
             var adminVM = admins.Select(user => new UserViewModel
             {
@@ -48,8 +48,8 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
             }).ToList();
 
-            var role2 = await (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
-            var cooks = await _context.Users.ToListAsync();
+            var role2 = (from r in _context.Roles where r.Name.Contains("Cook") select r).FirstOrDefaultAsync();
+            var cooks = await _userManager.Users.ToListAsync();
 
             var cookVM = cooks.Select(cook => new UserViewModel
             {
