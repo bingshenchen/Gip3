@@ -78,6 +78,9 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("ConfirmationSent")
+                        .HasColumnType("bit");
+
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
 

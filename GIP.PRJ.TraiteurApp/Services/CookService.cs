@@ -16,7 +16,6 @@ namespace GIP.PRJ.TraiteurApp.Services
             try
             {
                 DateTime currentLocalTime = DateTime.Now;
-
                 if (currentLocalTime >= cook.HolidayStartTime && currentLocalTime <= cook.HolidayEndTime)
                 {
                     cook.IsHoliday = true;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIP.PRJ.TraiteurApp.Migrations
 {
     [DbContext(typeof(TraiteurAppDbContext))]
-    [Migration("20230530171513_Update20230530")]
-    partial class Update20230530
+    [Migration("20230531230751_New")]
+    partial class New
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,9 @@ namespace GIP.PRJ.TraiteurApp.Migrations
 
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ConfirmationSent")
+                        .HasColumnType("bit");
 
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
