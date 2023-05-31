@@ -18,6 +18,7 @@ namespace GIP.PRJ.TraiteurApp.Models
         public string CompanyName { get; set; }
         public string VATNumber { get; set; }
         public string Address { get; set; }
+        public bool ConfirmationSent { get; set; } 
         public virtual IdentityUser IdentityUser { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
     }
