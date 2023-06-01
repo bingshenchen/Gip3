@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GIP.PRJ.TraiteurApp.Models
@@ -8,11 +10,11 @@ namespace GIP.PRJ.TraiteurApp.Models
         [Display(Name = "")]
         public int Id { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Chef Naam")]
         [Required(ErrorMessage = "Chef Naam is verplicht.")]
         public string ChefName { get; set; }
 
-        [Display(Name = "")] 
+        [Display(Name = "Jarenlange Ervaring")]
         public int YearsOfExperience { get; set; }
 
         [Display(Name = "")]
@@ -21,25 +23,25 @@ namespace GIP.PRJ.TraiteurApp.Models
         [Display(Name = "")]
         public virtual IdentityUser IdentityUser { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Bestellingen")]
         public virtual ICollection<Order> Orders { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Vakantie Van")]
         public DateTime HolidayStartTime { get; set; }
 
-        [Display(Name = "")]
-        public bool IsHoliday { get; set; }
-
-        [Display(Name = "")]
-        public DateTime SickStartTime { get; set; }
-
-        [Display(Name = "")]
-        public bool IsSick { get; set; }
-
-        [Display(Name = "")]
+        [Display(Name = "Vakantie Tot")]
         public DateTime HolidayEndTime { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Ziekte Van")]
+        public DateTime SickStartTime { get; set; }
+
+        [Display(Name = "Ziekte Tot")]
         public DateTime SickEndTime { get; set; }
+
+        [Display(Name = "Is Op Vakantie")]
+        public bool IsHoliday { get; set; }
+
+        [Display(Name = "Is Ziek")]
+        public bool IsSick { get; set; }
     }
 }
