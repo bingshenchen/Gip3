@@ -5,7 +5,7 @@
 namespace GIP.PRJ.TraiteurApp.Migrations
 {
     /// <inheritdoc />
-    public partial class _1juni : Migration
+    public partial class UpdateBusinessHours : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -4,19 +4,21 @@ namespace GIP.PRJ.TraiteurApp.Models
 {
     public class BusinessHours
     {
-        [Display(Name = "")]
+        public int Id { get; set; }
+
+        [Display(Name = "Day of Week")]
         public string DayOfWeek { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Opening Time")]
         public TimeSpan OpeningTime { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Closing Time")]
         public TimeSpan ClosingTime { get; set; }
 
-        [Display(Name = "")]
-        public ICollection<DateTime> Holidays { get; set; }
+        [Display(Name = "Holidays")]
+        public DateTime Holidays { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Is Closed")]
         public bool IsClosed { get; set; }
     }
 }
