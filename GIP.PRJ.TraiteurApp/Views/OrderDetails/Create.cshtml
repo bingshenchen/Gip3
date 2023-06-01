@@ -1,10 +1,10 @@
 ﻿@model GIP.PRJ.TraiteurApp.Models.OrderDetail
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Bestelgegevens Toevoegen";
 }
 
-<h1>Bestelgegevens toevoegen</h1>
+<h1>Bestelgegevens Toevoegen</h1>
 
 <h4>Bestelgegevens</h4>
 <hr />
@@ -35,7 +35,7 @@
             <div class="form-group">
                 <input type="submit" value="Toevoegen" class="btn btn-primary" />
 
-                <a asp-action="Index" asp-route-id="@Model.OrderId" class="btn btn-success">Overzicht bestelling</a>
+                <a asp-action="Index" asp-route-id="@Model.OrderId" class="btn btn-success">Terug naar de bestellingen</a>
             </div>
         </form>
     </div>
