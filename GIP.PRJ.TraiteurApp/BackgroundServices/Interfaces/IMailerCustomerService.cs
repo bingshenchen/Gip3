@@ -1,6 +1,8 @@
-﻿namespace GIP.PRJ.TraiteurApp.BackgroundServices.Interfaces
+﻿namespace GIP.PRJ.TraiteurApp.Services.Interfaces
 {
-    public class IMailerCustomerService
+    public interface IMailerCustomerService
     {
+        Task SendConfirmationMailAsync(string toMailAddress, string emailSubject, string emailBody);
+        Task DoWork();
     }
 }
