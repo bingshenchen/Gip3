@@ -26,7 +26,6 @@ namespace GIP.PRJ.TraiteurApp.Services
             try
             {
                 smtpClient.Send(mailMessage);
-               
             }
             catch (Exception ex)
             {

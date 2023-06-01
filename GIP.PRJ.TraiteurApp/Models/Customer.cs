@@ -10,7 +10,7 @@ namespace GIP.PRJ.TraiteurApp.Models
     }
     public class Customer
     {
-        [Display(Name = "")]
+        [Display(Name = "Id")]
         public int Id { get; set; }
 
         [Display(Name = "Naam")]

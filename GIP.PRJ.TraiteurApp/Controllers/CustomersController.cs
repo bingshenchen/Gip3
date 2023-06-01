@@ -76,8 +76,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Create([Bind("Id,Name,Rating,Info,EmailAddress," +
-            "IdentityUserId,CompanyName,VATNumber,Address")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Rating,Info,EmailAddress,IdentityUserId,CompanyName,VATNumber,Address")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -87,11 +86,13 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                     var mailContent = $"Beste {customer.Name},\r\n\r\nBedankt voor het registreren van een account bij LekkerBek! We zijn verheugd om je als nieuwe gebruiker te verwelkomen in onze community.\r\n\r\nMet vriendelijke groeten\r\nTeam 21";
                     _mailService.SendMail("lekkerbekgip3@outlook.com", customer.EmailAddress, "Lekkerbek - Bevestiging aanmelding (klant " + customer.Name + ")",
                          mailContent);
-                    ViewBag.InfoMessage = "De mail werd correct verstuurd";
+                    //ViewBag.InfoMessage = "De mail werd correct verstuurd";
+                    TempData["InfoMessage"] = "De mail werd correct verstuurd";
                 }
                 catch (Exception ex)
                 {
-                    ViewBag.ErrorMessage = "Fout tijdens versturen mail (" + ex.Message + ")";
+                    //ViewBag.ErrorMessage = "Fout tijdens versturen mail (" + ex.Message + ")";
+                    TempData["ErrorMessage"] = "Fout tijdens versturen mail (" + ex.Message + ")";
                 }
                 await _customerService.CreateCustomerAsync(customer);
                 return RedirectToAction(nameof(Index));

@@ -7,7 +7,7 @@ namespace GIP.PRJ.TraiteurApp.Models
 {
     public class Cook
     {
-        [Display(Name = "")]
+        [Display(Name = "Id")]
         public int Id { get; set; }
 
         [Display(Name = "Chef Naam")]
@@ -17,10 +17,10 @@ namespace GIP.PRJ.TraiteurApp.Models
         [Display(Name = "Jarenlange Ervaring")]
         public int YearsOfExperience { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Identiteit Gebruikers-ID")]
         public string IdentityUserId { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Identiteit Gebruikers")]
         public virtual IdentityUser IdentityUser { get; set; }
 
         [Display(Name = "Bestellingen")]
