@@ -8,24 +8,20 @@ namespace GIP.PRJ.TraiteurApp.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Bestel Id")]
         public int OrderId { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "MenuItem Id")]
         public int MenuItemId { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Hoeveelheid")]
         [Range(1, int.MaxValue, ErrorMessage = "Aantal moet groter zijn dan 0.")]
         public int Quantity { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Prijs")]
         [Range(0, double.MaxValue, ErrorMessage = "Prijs mag niet negatief zijn.")]
         public decimal Price { get; set; }
-
-        [Display(Name = "")]
         public virtual Order Order { get; set; }
-
-        [Display(Name = "")]
         public virtual MenuItem MenuItem { get; set; }
     }
 }

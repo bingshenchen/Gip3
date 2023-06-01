@@ -15,10 +15,10 @@ namespace GIP.PRJ.TraiteurApp.Models
         [Display(Name = "Besteld op")]
         public DateTime OrderedOn { get; set; }
 
-        [Display(Name = "Tijdsslot")]
+        [Display(Name = "Tijdslot")]
         public string TimeSlot { get; set; }
 
-        [Display(Name = "KlantId")]
+        [Display(Name = "Klant Id")]
         public int CustomerId { get; set; }
 
         [Display(Name = "Totaal")]
@@ -27,29 +27,23 @@ namespace GIP.PRJ.TraiteurApp.Models
         [Display(Name = "Korting")]
         public int Reduction { get; set; }
 
-        [Display(Name = "Is betaald")]
+        [Display(Name = "Betaald")]
         public bool IsPaid { get; set; }
         /// <summary>
         /// int? omdat een bestelling niet onmiddellijk aan een kok wordt toegewezen
         /// </summary>
         /// 
-        [Display(Name = "KokId")]
+        [Display(Name = "Kok Id")]
         public int? CookId { get; set; }
 
-        [Display(Name = "Status")]
+        [Display(Name = "Herinnering Verzonden")]
+        public bool ReminderSent { get; set; }
         public OrderStatus Status { get; set; }
-
-        [Display(Name = "Kok")]
         public virtual Cook Cook { get; set; }
-
-        [Display(Name = "Klant")]
         public virtual Customer Customer { get; set; }
-
-        [Display(Name = "Order details")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
 
-        [Display(Name = "Herinnering")]
-        public bool ReminderSent { get; set; }
+        
 
     }
 

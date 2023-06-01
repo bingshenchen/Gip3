@@ -5,13 +5,11 @@ namespace GIP.PRJ.TraiteurApp.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Naam")]
         public string Name { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "BTW")]
         public decimal VAT { get; set; }
-
-        [Display(Name = "")]
         public virtual ICollection<MenuItem> MenuItems { get; set; }
     }
 }
