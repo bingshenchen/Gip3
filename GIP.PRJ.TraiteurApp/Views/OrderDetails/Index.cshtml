@@ -4,7 +4,7 @@
     ViewData["Title"] = "Overzicht order";
 }
 
-<h1>Overzicht order - @ViewBag.OrderId</h1>
+<h1>Overzicht Bestellijn - @ViewBag.OrderId</h1>
 
 @if (!ViewBag.IsLocked)
 {
@@ -48,7 +48,7 @@
                 @if (!ViewBag.IsLocked)
                 {
                     <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Aanpassen</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Bewerken</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Verwijderen</a>
                     </td>

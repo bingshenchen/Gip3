@@ -7,7 +7,7 @@ namespace GIP.PRJ.TraiteurApp.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Chef Name is verplicht.")]
+        [Required(ErrorMessage = "Chef Naam is verplicht.")]
         public string ChefName { get; set; }
         public int YearsOfExperience { get; set; }
         public string IdentityUserId { get; set; }

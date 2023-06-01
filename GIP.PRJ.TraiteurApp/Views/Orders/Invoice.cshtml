@@ -4,7 +4,7 @@
     ViewData["Title"] = "Bestelling details";
 }
 
-<h1>Factuur</h1>
+<h1>Afrekenen</h1>
 
 <div>
     <h4>Bestelling - @ViewBag.OrderId</h4>
@@ -92,5 +92,5 @@
 </div>
 <div>
     <a class="btn btn-success" onclick="window.print();">Print</a>
-    <a class="btn btn-info" asp-action="SendMail" asp-controller="Orders" asp-route-id="@ViewBag.OrderId">Verstuur via mail</a>
+    <a class="btn btn-info" asp-action="SendMail" asp-controller="Orders" asp-route-id="@ViewBag.OrderId">Mail verzenden</a>
 </div>

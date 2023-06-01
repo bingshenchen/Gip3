@@ -26,7 +26,7 @@
             "#if(!IsPaid) {#" +
             "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
             Url.Action("Edit", "Orders", new { id = "#= Id #" }) +
-            "'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>" +
+            "'" + "><span class='k-icon k-i-edit'></span>Bewerken</a>" +
             "#}#"
             );
             columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
@@ -40,7 +40,7 @@
             "#if(!IsPaid) {#" +
             "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
             Url.Action("Index", "OrderDetails", new { id = "#= Id #" }) +
-            "'" + "><span class='k-icon k-i-link'></span>Detail overzicht</a>" +
+            "'" + "><span class='k-icon k-i-link'></span>Details overzicht</a>" +
             "#}#"
             );
             columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(

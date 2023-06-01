@@ -4,11 +4,11 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1>Verwijderen</h1>
 
-<h3>Ben je zeker dat je dit wil verwijderen?</h3>
+<h3>Weet u zeker dat u deze bestelling wilt verwijderen?</h3>
 <div>
-    <h4>Order</h4>
+    <h4>Bestellingen</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -34,6 +34,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Terug naar overzicht</a>
+        <a asp-action="Index">Terug naar het overzicht</a>
     </form>
 </div>

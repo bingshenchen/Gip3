@@ -11,7 +11,7 @@
     <hr />
     @if (ViewBag.IsLocked)
     {
-        <div style="color:darkred">De bestelling kan niet meer worden aangepast (Tijd tot gereserveerd tijdslot is minder dan 1 uur)</div>
+        <div style="color:darkred">Bestelling kan niet meer worden aangepast (Tijd tot gereserveerd tijdslot is minder dan 1 uur)</div>
     }
     
     <dl class="row">
@@ -38,8 +38,8 @@
 <div>
     @if (!ViewBag.IsLocked)
     {
-        <a asp-action="Edit" asp-route-id="@Model?.Id">Aanpassen</a> @:|
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Bewerken</a> @:|
     }
     
-    <a asp-action="Index">Terug naar overzicht</a>
+    <a asp-action="Index">Terug naar het overzicht</a>
 </div>

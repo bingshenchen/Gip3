@@ -12,7 +12,7 @@ namespace GIP.PRJ.TraiteurApp.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Name is verplicht.")]
+        [Required(ErrorMessage = "Naam is verplicht.")]
         public string Name { get; set; }
 
         public CustomerRating Rating { get; set; }
@@ -27,7 +27,7 @@ namespace GIP.PRJ.TraiteurApp.Models
         [RegularExpression(@"BE\d{10}", ErrorMessage = "Ongeldig BTW-nummer.")]
         public string VATNumber { get; set; }
 
-        [Required(ErrorMessage = "Address is verplicht.")]
+        [Required(ErrorMessage = "Adres is verplicht.")]
         public string Address { get; set; }
 
         public bool ConfirmationSent { get; set; }
