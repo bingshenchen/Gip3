@@ -5,7 +5,7 @@
 namespace GIP.PRJ.TraiteurApp.Migrations
 {
     /// <inheritdoc />
-    public partial class dbcontroller : Migration
+    public partial class _1juni : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

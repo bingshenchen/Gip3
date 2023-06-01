@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIP.PRJ.TraiteurApp.Migrations
 {
     [DbContext(typeof(TraiteurAppDbContext))]
-    [Migration("20230526102410_dbcontroller")]
-    partial class dbcontroller
+    [Migration("20230601124553_1juni")]
+    partial class _1juni
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,29 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ChefName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("HolidayEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("HolidayStartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsHoliday")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSick")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("SickEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("SickStartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("YearsOfExperience")
                         .HasColumnType("int");
@@ -58,10 +77,14 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ConfirmationSent")
+                        .HasColumnType("bit");
 
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
@@ -73,6 +96,7 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rating")
@@ -97,12 +121,14 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MenuItemCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -227,6 +253,25 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     b.ToTable("OrderDetails");
                 });
 
+            modelBuilder.Entity("GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CreateRolesViewModel");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -244,12 +289,17 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("UserViewModelId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.HasIndex("UserViewModelId");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -494,6 +544,13 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.HasOne("GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("UserViewModelId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -568,6 +625,11 @@ namespace GIP.PRJ.TraiteurApp.Migrations
             modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
