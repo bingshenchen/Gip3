@@ -219,5 +219,23 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         {
           return _context.CreateRolesViewModel.Any(e => e.Id == id);
         }
+
+        public IActionResult GetAdmin([DataSourceRequest] DataSourceRequest request)
+        {
+            var adminList = _context.Users.Select(user => new UserViewModel
+            {
+                Email = user.Email,
+                RoleName = _context.UserRoles
+                    .Where(ur => ur.UserId == user.Id)
+                    .Join(_context.Roles,
+                        userRole => userRole.RoleId,
+                        role => role.Id,
+                        (userRole, role) => role.Name)
+                    .FirstOrDefault()
+            });
+
+            var result = adminList.ToDataSourceResult(request);
+            return Json(result);
+        }
     }
 }
