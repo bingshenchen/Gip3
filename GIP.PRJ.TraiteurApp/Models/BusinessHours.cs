@@ -6,6 +6,7 @@ namespace GIP.PRJ.TraiteurApp.Models
     {
         [Display(Name = "")]
         public string DayOfWeek { get; set; }
+
         [Display(Name = "Sluitingsdagen")]
         public string ClosingDays { get; set; }
 
