@@ -16,29 +16,29 @@
         .Name("grid")
         .Columns(columns =>
         {
-            columns.Bound(p => p.Id);
+            columns.Bound(p => p.UserId);
             columns.Bound(p => p.Email);
             columns.Bound(p => p.RoleName);
-            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            columns.Bound(p => p.UserId).Width(100).Title(" ").ClientTemplate(
             "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
             Url.Action("Edit", "Admin") +
-            "/#= Id #'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>"
+            "/#= UserId #'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>"
             );
-            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            columns.Bound(p => p.UserId).Width(100).Title(" ").ClientTemplate(
             "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
             Url.Action("Details", "Admin") +
-            "/#= Id #'" + "><span class='k-icon k-i-info-circle'></span>Details</a>"
+            "/#= UserId #'" + "><span class='k-icon k-i-info-circle'></span>Details</a>"
             );
-            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            columns.Bound(p => p.UserId).Width(100).Title(" ").ClientTemplate(
             "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
             Url.Action("Delete", "Admin") +
-            "/#= Id #'" + "><span class='k-icon k-i-delete'></span>Verwijderen</a>"
+            "/#= UserId #'" + "><span class='k-icon k-i-delete'></span>Verwijderen</a>"
             );
         })
         .DataSource(dataSource => dataSource
         .Ajax()
         .Read(read => read.Action("GetAdmin", "Admin"))
-        .Model(model => model.Id(d => d.Id))
+        .Model(model => model.Id(d => d.UserId))
         )
         )
 </div>

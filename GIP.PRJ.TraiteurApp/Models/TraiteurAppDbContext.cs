@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using GIP.PRJ.TraiteurApp.ViewModels.Admin;
-using System.Data.Common;
 using GIP.PRJ.TraiteurApp.Models;
 
 namespace GIP.PRJ.TraiteurApp.Models
@@ -14,10 +12,10 @@ namespace GIP.PRJ.TraiteurApp.Models
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Cook> Cooks { get; set; }
         public DbSet<MenuItemCategory> MenuItemCategories { get; set; }
+        public DbSet<BusinessHours> BusinessHours { get; set; }
 
         public TraiteurAppDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -27,12 +25,8 @@ namespace GIP.PRJ.TraiteurApp.Models
             builder.Entity<MenuItemCategory>().HasData(
                 new MenuItemCategory { Id = -1, Name = "Afhaalgerechten", VAT = 6 },
                 new MenuItemCategory { Id = -2, Name = "Niet-alcoholische dranken", VAT = 6 },
-                new MenuItemCategory { Id = -3, Name = "Alcoholische dranken", VAT = 21}
+                new MenuItemCategory { Id = -3, Name = "Alcoholische dranken", VAT = 21 }
                 );
         }
-
-        public DbSet<UserViewModel> CreateRolesViewModel { get; set; }
-
-        public DbSet<GIP.PRJ.TraiteurApp.Models.BusinessHours> BusinessHours { get; set; }
     }
 }

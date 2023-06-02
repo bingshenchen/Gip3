@@ -33,7 +33,7 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ICookService, CookService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<ITimeSlotService, TimeSlotService>();
-builder.Services.AddScoped<IRolesService, RoleService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IBusinessHoursService, BusinessHoursService>();
 /// Send Email
 builder.Services.AddHostedService<MailerBackgroundService>();
@@ -109,8 +109,7 @@ if (result.Succeeded)
     {
         Name = "CustomerNr1",
         EmailAddress = "customer@ucll.be",
-        IdentityUserId =
-        customerUser.Id
+        IdentityUserId = customerUser.Id
     };
     await customerService.CreateCustomerAsync(customer);
 }

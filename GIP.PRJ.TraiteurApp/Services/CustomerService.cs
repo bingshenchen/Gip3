@@ -23,8 +23,7 @@ namespace GIP.PRJ.TraiteurApp.Services
             catch (Exception ex)
             {
                 // logging
-                throw new Exception($"CustomerService > CreateCustomerAsync: " +
-                    $"An error occurred while creating the customer {customer.Name}", ex);
+                throw new Exception($"CustomerService > CreateCustomerAsync: An error occurred while creating the customer {customer.Name}", ex);
             }
         }
 

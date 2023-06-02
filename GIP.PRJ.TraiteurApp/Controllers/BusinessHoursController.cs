@@ -21,7 +21,8 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: BusinessHours
         public async Task<IActionResult> Index()
         {
-            return View(await _context.BusinessHours.ToListAsync());
+            //return View(await _context.BusinessHours.ToListAsync());
+            return View();
         }
         // GET: BusinessHours/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -144,3 +145,4 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         }
     }
 }
+
