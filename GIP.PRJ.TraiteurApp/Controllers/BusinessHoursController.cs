@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GIP.PRJ.TraiteurApp.Models;
+using GIP.PRJ.TraiteurApp.Services.Interfaces;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
     public class BusinessHoursController : Controller
     {
         private readonly TraiteurAppDbContext _context;
+        private readonly IBusinessHoursService _businessHoursService;
 
-        public BusinessHoursController(TraiteurAppDbContext context)
+        public BusinessHoursController(TraiteurAppDbContext context, IBusinessHoursService hoursService)
         {
             _context = context;
+            _businessHoursService = hoursService;
         }
 
         // GET: BusinessHours
@@ -53,7 +56,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DayOfWeek,OpeningTime,ClosingTime,Holidays,IsClosed")] BusinessHours businessHours)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +87,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DayOfWeek,OpeningTime,ClosingTime,Holidays,IsClosed")] BusinessHours businessHours)
         {
             if (id != businessHours.Id)
             {

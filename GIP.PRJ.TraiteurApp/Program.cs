@@ -34,6 +34,7 @@ builder.Services.AddScoped<ICookService, CookService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<ITimeSlotService, TimeSlotService>();
 builder.Services.AddScoped<IRolesService, RoleService>();
+builder.Services.AddScoped<IBusinessHoursService, BusinessHoursService>();
 /// Send Email
 builder.Services.AddHostedService<MailerBackgroundService>();
 builder.Services.AddTransient<IMailerWorkerService, MailerWorkerService>();
