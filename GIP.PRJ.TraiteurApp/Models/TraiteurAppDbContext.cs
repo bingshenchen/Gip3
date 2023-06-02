@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using GIP.PRJ.TraiteurApp.ViewModels.Admin;
+using System.Data.Common;
 using GIP.PRJ.TraiteurApp.Models;
 
 namespace GIP.PRJ.TraiteurApp.Models

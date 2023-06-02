@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GIP.PRJ.TraiteurApp.Migrations
 {
     [DbContext(typeof(TraiteurAppDbContext))]
-    [Migration("20230601124553_1juni")]
-    partial class _1juni
+    [Migration("20230602131959_UpdateBusinessHours")]
+    partial class UpdateBusinessHours
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

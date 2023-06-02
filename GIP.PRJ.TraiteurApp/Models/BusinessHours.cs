@@ -5,7 +5,10 @@ namespace GIP.PRJ.TraiteurApp.Models
 {
     public class BusinessHours
     {
+
+
         public int Id { get; set; }
+
         [Display(Name = "")]
         public string DayOfWeek { get; set; }
 
@@ -15,7 +18,7 @@ namespace GIP.PRJ.TraiteurApp.Models
         [Display(Name = "")]
         public TimeSpan OpeningTime { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Closing Time")]
         public TimeSpan ClosingTime { get; set; }
 
         [Display(Name = "")]

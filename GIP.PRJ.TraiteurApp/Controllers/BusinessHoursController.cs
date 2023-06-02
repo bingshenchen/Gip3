@@ -7,26 +7,22 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GIP.PRJ.TraiteurApp.Models;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
-
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
     public class BusinessHoursController : Controller
     {
         private readonly TraiteurAppDbContext _context;
         private readonly IBusinessHoursService _businessHoursService;
-
         public BusinessHoursController(TraiteurAppDbContext context, IBusinessHoursService hoursService)
         {
             _context = context;
             _businessHoursService = hoursService;
         }
-
         // GET: BusinessHours
         public async Task<IActionResult> Index()
         {
-              return View(await _context.BusinessHours.ToListAsync());
+            return View(await _context.BusinessHours.ToListAsync());
         }
-
         // GET: BusinessHours/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -34,23 +30,19 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-
             var businessHours = await _context.BusinessHours
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (businessHours == null)
             {
                 return NotFound();
             }
-
             return View(businessHours);
         }
-
         // GET: BusinessHours/Create
         public IActionResult Create()
         {
             return View();
         }
-
         // POST: BusinessHours/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -66,7 +58,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             }
             return View(businessHours);
         }
-
         // GET: BusinessHours/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -74,7 +65,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-
             var businessHours = await _context.BusinessHours.FindAsync(id);
             if (businessHours == null)
             {
@@ -82,7 +72,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             }
             return View(businessHours);
         }
-
         // POST: BusinessHours/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -94,7 +83,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try
@@ -117,7 +105,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             }
             return View(businessHours);
         }
-
         // GET: BusinessHours/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -125,17 +112,14 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-
             var businessHours = await _context.BusinessHours
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (businessHours == null)
             {
                 return NotFound();
             }
-
             return View(businessHours);
         }
-
         // POST: BusinessHours/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -150,14 +134,13 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 _context.BusinessHours.Remove(businessHours);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         private bool BusinessHoursExists(int id)
         {
-          return _context.BusinessHours.Any(e => e.Id == id);
+            return _context.BusinessHours.Any(e => e.Id == id);
         }
     }
 }
