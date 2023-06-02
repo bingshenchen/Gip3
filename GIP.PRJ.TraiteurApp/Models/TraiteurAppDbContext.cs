@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using GIP.PRJ.TraiteurApp.ViewModels.Admin;
+using GIP.PRJ.TraiteurApp.Models;
 
 namespace GIP.PRJ.TraiteurApp.Models
 {
@@ -30,5 +31,7 @@ namespace GIP.PRJ.TraiteurApp.Models
         }
 
         public DbSet<UserViewModel> CreateRolesViewModel { get; set; }
+
+        public DbSet<GIP.PRJ.TraiteurApp.Models.BusinessHours> BusinessHours { get; set; }
     }
 }

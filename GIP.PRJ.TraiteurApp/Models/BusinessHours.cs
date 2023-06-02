@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GIP.PRJ.TraiteurApp.Models
 {
     public class BusinessHours
     {
+        public int Id { get; set; }
         [Display(Name = "")]
         public string DayOfWeek { get; set; }
 
@@ -17,6 +19,7 @@ namespace GIP.PRJ.TraiteurApp.Models
         public TimeSpan ClosingTime { get; set; }
 
         [Display(Name = "")]
+        [NotMapped]
         public ICollection<DateTime> Holidays { get; set; }
 
         [Display(Name = "")]
