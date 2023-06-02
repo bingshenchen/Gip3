@@ -59,5 +59,35 @@ namespace GIP.PRJ.TraiteurApp.Services
         {
             throw new NotImplementedException();
         }
+
+        Task IRolesService.CreateUserRole(UserViewModel createRoles)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IRolesService.DeleteUserAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<IdentityUser>> IRolesService.GetAllUsersIdentity()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IdentityUser> IRolesService.GetUserByIdAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IRolesService.GetUsersRoles()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task IRolesService.UpdateUserAsync(UserViewModel createRoles)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

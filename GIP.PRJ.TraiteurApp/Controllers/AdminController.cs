@@ -67,12 +67,14 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-            var detailsusers = await _context.Users.ToListAsync();
-            if (detailsusers == null)
+
+            IdentityUser user = await _rolesService.GetUserByIdAsync(id);
+
+            if (user == null)
             {
                 ModelState.AddModelError("", "Details cannot be found");
             }
-            return View(detailsusers);
+            return View(user);
         }
 
         // GET: CreateRolesViewModels/Create
@@ -89,11 +91,11 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var newUser = new IdentityUser(uv.Email);
-                IdentityResult identityResult = await _userManager.CreateAsync(newUser, "Password");
+                var newUser = new IdentityUser { Email = uv.Email, UserName = uv.Email};
+                IdentityResult identityResult = await _userManager.CreateAsync(newUser, "Password132..");
                 if (identityResult.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(newUser, uv.RoleName);
+                    await _userManager.AddToRoleAsync(newUser, "Cook");
                 }
 
                 return RedirectToAction(nameof(Index));
