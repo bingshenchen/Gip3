@@ -67,9 +67,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 return NotFound();
             }
-
             IdentityUser user = await _rolesService.GetUserByIdAsync(id);
-
             if (user == null)
             {
                 ModelState.AddModelError("", "Details cannot be found");
@@ -78,6 +76,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         }
 
         // GET: CreateRolesViewModels/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             UserViewModel user = new UserViewModel();
@@ -85,19 +84,20 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             return View(user);
         }
 
+        //POST: Admin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Email,Password,RoleId")] UserViewModel uv)
+        public async Task<IActionResult> Create([Bind("Id,Email,RoleName,Roles")] UserViewModel uv)
         {
             if (ModelState.IsValid)
             {
-                var newUser = new IdentityUser { Email = uv.Email, UserName = uv.Email};
+                /*var newUser = new IdentityUser { Email = uv.Email, UserName = uv.Email};
                 IdentityResult identityResult = await _userManager.CreateAsync(newUser, "Password132..");
                 if (identityResult.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(newUser, "Cook");
-                }
-
+                }*/
+                await _rolesService.CreateUserRole(uv);
                 return RedirectToAction(nameof(Index));
             }
             uv.Roles = _context.Roles.ToList();
@@ -110,17 +110,24 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             if (id == null)
             {
                 return NotFound();
+
             }
 
-            var user = await _userManager.FindByIdAsync(id);
-            if (user != null)
+            var user = await _rolesService.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
+            /*IdentityUser user = await _rolesService.GetUserByIdAsync(id);
+            if (user == null)
             {
                 return View(user);
             }
             else
             {
                 return RedirectToAction(nameof(Index));
-            }
+            }*/
         }
 
         // POST: Admin/Edit/5
@@ -128,9 +135,31 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, string email, string password)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Email,RoleName,Roles")]UserViewModel uv)
         {
-            var edituser = await _userManager.FindByIdAsync(id);
+            //IdentityUser user = await _rolesService.GetUserByIdAsync(id);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _rolesService.UpdateUserAsync(uv);
+
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("", ex);
+                }
+                /*if (User.IsInRole("Administrator"))
+                {
+                    return RedirectToAction(nameof(Details));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index));
+                }*/
+            }
+            return View(uv);
+            /*var edituser = await _userManager.FindByIdAsync(id);
             if (edituser != null)
             {
                 if (!string.IsNullOrEmpty(email))
@@ -168,18 +197,19 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                 ModelState.AddModelError("", "User not Found");
 
             }
-            return View(edituser);
+            return View(edituser);*/
         }
 
         // GET: Admin/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(string id)
         {
             try
             {
-                var deleteuser = await _userManager.FindByIdAsync(id);
-                if (deleteuser != null)
+                var user = await _rolesService.GetUserByIdAsync(id);
+                if (user != null)
                 {
-                    return View(deleteuser);
+                    return View(user);
                 }
                 else
                 {
@@ -195,29 +225,14 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // POST: Admin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var deleteuser = await _userManager.FindByIdAsync(id); 
-            if (deleteuser != null) 
-            {
-                IdentityResult identityResult = await _userManager.DeleteAsync(deleteuser);
-                if (identityResult.Succeeded)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("", "User Not Found");
-            }
-            return View(deleteuser);
+            await _rolesService.GetUserByIdAsync(id); 
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool UserViewModelExists(int id)
+        private bool UserViewModelExists(string id)
         {
           return _context.CreateRolesViewModel.Any(e => e.Id == id);
         }
@@ -238,6 +253,11 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
             var result = adminList.ToDataSourceResult(request);
             return Json(result);
+        }
+
+        private async Task<bool> UserExists(string id)
+        {
+            return (await _rolesService.GetUserByIdAsync(id)) != null;
         }
     }
 }

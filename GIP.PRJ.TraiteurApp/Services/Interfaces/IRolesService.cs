@@ -10,8 +10,8 @@ namespace GIP.PRJ.TraiteurApp.Services.Interfaces
         Task GetUsersRoles();
         Task<IEnumerable<IdentityUser>> GetAllUsersIdentity();
         Task<IdentityUser> GetUserByIdAsync(string id);
-        Task CreateUserRole(UserViewModel createRoles);
-        Task UpdateUserAsync(UserViewModel createRoles);
+        Task CreateUserRole(UserViewModel uv);
+        Task UpdateUserAsync(UserViewModel uv);
         Task DeleteUserAsync(string id);
     }
 }
