@@ -10,5 +10,6 @@ namespace GIP.PRJ.TraiteurApp.Services.Interfaces
         Task CreateCookAsync(Cook cook);
         Task UpdateCookAsync(Cook cook);
         Task DeleteCookAsync(int id);
+
     }
 }
