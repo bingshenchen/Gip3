@@ -19,9 +19,26 @@ namespace GIP.PRJ.TraiteurApp.Repository
         {     
             _dbContext = dbContext;
         }
+
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return _dbContext.Customers.ToList();
+        }
+        public Customer GetCustomerById(int? id)
+        {
+            return _dbContext.Customers.Find(id);
+        }
+        public Customer GetCustomerByIdentityAsync(string id)
+        {
+            throw new NotImplementedException();
+        }
         public void CreateCustomer(Customer c)
         {
             _dbContext.Customers.Add(c);
+        }
+        public void UpdateCustomer(Customer c)
+        {
+            _dbContext.Entry(c).State = EntityState.Modified;
         }
 
         public void DeleteCustomer(int id)
@@ -29,31 +46,9 @@ namespace GIP.PRJ.TraiteurApp.Repository
             Customer customer = _dbContext.Customers.Find(id);
             _dbContext.Customers.Remove(customer);
         }
-
-        public Customer GetCustomerById(int id)
-        {
-            return _dbContext.Customers.Find(id);
-        }
-
-        public Customer GetCustomerByIdentityAsync(string id)
-        {
-            throw new NotImplementedException();
-
-        }
-
-        public IEnumerable<Customer> GetCustomers()
-        {
-            return _dbContext.Customers.ToList();
-        }
-
         public void Save()
         {
             _dbContext.SaveChanges();
-        }
-
-        public void UpdateCustomer(Customer c)
-        {
-            _dbContext.Entry(c).State = EntityState.Modified;
         }
         public void Dispose()
         {

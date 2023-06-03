@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using GIP.PRJ.TraiteurApp.Services;
+using GIP.PRJ.TraiteurApp.Repository.Interface;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
@@ -20,27 +21,34 @@ namespace GIP.PRJ.TraiteurApp.Controllers
     {
         private readonly ICustomerService _customerService;
         private readonly IOrderService _orderService;
+        private readonly ICustomerRespository _respository;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IMailService _mailService;
 
-        public CustomersController(ICustomerService customerService, IOrderService orderService, UserManager<IdentityUser> userManager, IMailService mailService)
+        public CustomersController(ICustomerService customerService, IOrderService orderService, UserManager<IdentityUser> userManager, IMailService mailService, ICustomerRespository respository)
         {
             _customerService = customerService;
             _orderService = orderService;
+            _respository = respository;
             _userManager = userManager;
             _mailService = mailService;
         }
-
+        //REPOSITORY CODE ZIJN ALLEMAAL IN COMENTAAR GEZET!!
         // GET: Customers
         [Authorize(Roles = "Administrator")]
         public IActionResult Index()
         {
+            /*var data = _respository.GetCustomers();
+            return View(data);*/
             return View();
         }
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            /*Customer customer1 = _respository.GetCustomerById(id);
+            return View(customer1);*/
+
             Customer customer;
 
             if (User.IsInRole("Customer"))
@@ -78,6 +86,10 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create([Bind("Id,Name,Rating,Info,EmailAddress,IdentityUserId,CompanyName,VATNumber,Address")] Customer customer)
         {
+            /*_respository.CreateCustomer(customer);
+            _respository.Save();
+            return RedirectToAction("Index");*/
+
             if (ModelState.IsValid)
             {
                 try
@@ -105,6 +117,9 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         // GET: Customers/Edit/5        
         public async Task<IActionResult> Edit(int? id)
         {
+            /*Customer customer = _respository.GetCustomerById(id);
+            return View(customer);*/
+
             Customer customer;
             if (User.IsInRole("Customer"))
             {
@@ -133,6 +148,10 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Rating,Info,EmailAddress," +
             "IdentityUserId,CompanyName,VATNumber,Address")] Customer customer)
         {
+            /*_respository.UpdateCustomer(customer);
+            _respository.Save();
+            return RedirectToAction(nameof(Index));*/
+
             if (id != customer.Id)
             {
                 return NotFound();
