@@ -48,6 +48,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             return View(new UserViewModel());
         }
 
+        //POST: Admin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Email,RoleName,Roles")] UserViewModel model)
@@ -68,6 +69,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             if (user == null)
             {
                 return NotFound();
+
             }
 
             var roles = await _userManager.GetRolesAsync(user);
@@ -115,6 +117,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await _adminService.DeleteUserAsync(id);
@@ -126,5 +129,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             var result = await _adminService.GetAdminsAsync(request);
             return Json(result);
         }
+
     }
 }
