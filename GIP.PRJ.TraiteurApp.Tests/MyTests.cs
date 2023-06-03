@@ -1,6 +1,9 @@
-﻿using GIP.PRJ.TraiteurApp.Models;
+﻿using GIP.PRJ.TraiteurApp.Controllers;
+using GIP.PRJ.TraiteurApp.Models;
+using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +33,21 @@ namespace GIP.PRJ.TraiteurApp.Tests
         [TestMethod]
         public void TestMethod1()
         {
+            var mockCustomerService = new Mock<ICustomerService>();
+            //Customer 1
+
+            var customerNr1 = new Customer { Id = 1, Name = "Jhon Doe" };
+            mockCustomerService.Setup(x => x.GetCustomerByIdAsync(customerNr1.Id)).ReturnsAsync(customerNr1);
+
+            //Customer 2
+            var customerNr2 = new Customer { Id = 2, Name = "Richard Doe" };
+            mockCustomerService.Setup(x => x.GetCustomerByIdAsync(customerNr2.Id)).ReturnsAsync(customerNr2);
+
+            //controller Object
+            //var controller = new CustomersController(mockCustomerService.Object);
+
+
+
         }
 
         [TestCleanup]
