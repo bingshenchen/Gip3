@@ -37,6 +37,7 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 ModelState.AddModelError("", "User not found");
                 return View(new UserViewModel());
+
             }
 
             return View(viewModel);
@@ -53,7 +54,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Email,RoleName,Roles")] UserViewModel model)
         {
-
             if (ModelState.IsValid)
             {
                 await _adminService.CreateUserRole(model);
@@ -66,21 +66,18 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var user = await _adminService.GetUserByIdAsync(id);
-            if (user == null)
+            if (user != null)
             {
-                return NotFound();
-
+                var roles = await _userManager.GetRolesAsync(user);
+                var viewModel = new UserViewModel
+                {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    RoleName = string.Join(", ", roles)
+                };
+                return View(viewModel);
             }
-
-            var roles = await _userManager.GetRolesAsync(user);
-            var viewModel = new UserViewModel
-            {
-                UserId = user.Id,
-                Email = user.Email,
-                RoleName = string.Join(", ", roles)
-            };
-
-            return View(viewModel);
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]

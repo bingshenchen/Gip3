@@ -80,17 +80,17 @@ namespace GIP.PRJ.TraiteurApp.Services
 
         public async Task<IdentityUser> GetUserByIdAsync(string id)
         {
-            return await _userManager.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _userManager.FindByIdAsync(id);
         }
 
         public async Task UpdateUserAsync(UserViewModel uv)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == uv.UserId);
+            var user = _context.Users.FirstOrDefault(u => u.Id == uv.UserId);
+            /*var user = await _userManager.Users.FirstAsync(u => u.Id == uv.UserId);*/
             if (user != null)
             {
                 user.Email = uv.Email;
                 user.UserName = uv.RoleName;
-
                 await _userManager.UpdateAsync(user);
             }
         }
@@ -102,7 +102,6 @@ namespace GIP.PRJ.TraiteurApp.Services
             {
                 return null;
             }
-
             var roles = await _userManager.GetRolesAsync(user);
 
             var viewModel = new UserViewModel

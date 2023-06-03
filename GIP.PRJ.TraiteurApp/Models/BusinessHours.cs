@@ -5,8 +5,6 @@ namespace GIP.PRJ.TraiteurApp.Models
 {
     public class BusinessHours
     {
-
-
         public int Id { get; set; }
 
         [Display(Name = "")]
