@@ -34,7 +34,7 @@ namespace GIP.PRJ.TraiteurApp.Services
             foreach (var user in users)
             {
                 var r = await _userManager.GetRolesAsync(user);
-                userRoleViewModels.Add(new UserViewModel { RoleName = string.Join(", ", r), Email = user.Email, UserId = user.Id });
+                userRoleViewModels.Add(new UserViewModel { RoleName = string.Join(", ", r), Email = user.Email, Id = user.Id });
             }
 
             return userRoleViewModels;
@@ -48,7 +48,7 @@ namespace GIP.PRJ.TraiteurApp.Services
                 var roles = await _userManager.GetRolesAsync(user);
                 return new UserViewModel
                 {
-                    UserId = user.Id,
+                    Id = user.Id,
                     Email = user.Email,
                     RoleName = string.Join(", ", roles)
                 };
@@ -60,7 +60,7 @@ namespace GIP.PRJ.TraiteurApp.Services
         {
             var adminList = _context.Users.Select(user => new UserViewModel
             {
-                UserId = user.Id,
+                Id = user.Id,
                 Email = user.Email,
                 RoleName = _context.UserRoles
                     .Where(ur => ur.UserId == user.Id)
@@ -106,7 +106,7 @@ namespace GIP.PRJ.TraiteurApp.Services
 
         public async Task UpdateUserAsync(UserViewModel uv)
         {
-            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == uv.UserId);
+            var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == uv.Id);
             if (user != null)
             {
                 user.Email = uv.Email;

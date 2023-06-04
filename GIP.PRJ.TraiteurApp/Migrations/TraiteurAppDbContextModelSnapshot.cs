@@ -299,6 +299,22 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     b.ToTable("OrderDetails");
                 });
 
+            modelBuilder.Entity("GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserViewModels");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -316,12 +332,17 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("UserViewModelId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.HasIndex("UserViewModelId");
 
                     b.ToTable("AspNetRoles", (string)null);
                 });
@@ -577,6 +598,13 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.HasOne("GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel", null)
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserViewModelId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -656,6 +684,11 @@ namespace GIP.PRJ.TraiteurApp.Migrations
             modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.Order", b =>
                 {
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }
