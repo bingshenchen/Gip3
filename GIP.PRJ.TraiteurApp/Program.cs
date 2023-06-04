@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using GIP.PRJ.TraiteurApp.BackgroundServices;
 using GIP.PRJ.TraiteurApp.BackgroundServices.Interfaces;
+using GIP.PRJ.TraiteurApp.Repository.Interface;
+using GIP.PRJ.TraiteurApp.Repository;
 
 /* Opdracht:                Gip3 TraiteurApp
  * Groep:                   21
@@ -35,9 +37,12 @@ builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<ITimeSlotService, TimeSlotService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IBusinessHoursService, BusinessHoursService>();
+builder.Services.AddScoped<ICustomerRespository, CustomerRepository>();
+
 /// Send Email
 builder.Services.AddHostedService<MailerBackgroundService>();
 builder.Services.AddTransient<IMailerWorkerService, MailerWorkerService>();
+builder.Services.AddTransient<IMailerCustomerService, MailerCustomerService>();
 
 
 /// ServiceLifetime.Transient => belangrijk wanneer de context meerdere keren per action call wordt gebruikt om een entiteit op te halen.
