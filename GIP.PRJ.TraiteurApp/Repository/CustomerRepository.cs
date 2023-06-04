@@ -1,13 +1,7 @@
 ﻿using GIP.PRJ.TraiteurApp.Models;
 using GIP.PRJ.TraiteurApp.Repository.Interface;
-using System.Linq;
-using System.Collections.Generic;
-using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
-using AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using Telerik.SvgIcons;
+
 
 namespace GIP.PRJ.TraiteurApp.Repository
 {

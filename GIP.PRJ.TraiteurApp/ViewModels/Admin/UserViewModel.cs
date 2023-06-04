@@ -1,5 +1,4 @@
 ﻿using GIP.PRJ.TraiteurApp.Services;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

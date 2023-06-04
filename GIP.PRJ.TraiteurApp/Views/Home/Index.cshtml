@@ -1,11 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model GIP.PRJ.TraiteurApp.Models.BusinessHours
 
 <div class="text-center">
     <h1 class="display-4">Welkom</h1>
     <p><img src="~/img/logo.jpeg" /></p>
 </div>
+
 <div class="row">
     <div class="col-md-10">
         <div class="form-group">
@@ -27,3 +29,20 @@
         </div>
     </div>
 </div>
+
+<br />
+<br />
+<h4>Openingsueren</h4>
+
+<p>Openingsdagen: @Model.DayOfWeek</p>
+<p>Sluitingsdagen: @Model.ClosingDays</p>
+<p>Openingsuren @Model.OpeningTime</p>
+<p>Sluitingstijd: @Model.ClosingTime</p>
+@if (Model.ForceClosed)
+{
+    <p>LekkerBek is gesloten</p>
+}
+else
+{
+    <p>LekkerBek is open.</p>
+}

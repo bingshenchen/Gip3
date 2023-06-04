@@ -1,29 +1,45 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace GIP.PRJ.TraiteurApp.Models
 {
     public class BusinessHours
     {
         public int Id { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Openingsdagen")]
         public string DayOfWeek { get; set; }
 
         [Display(Name = "Sluitingsdagen")]
         public string ClosingDays { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Openingsuren")]
         public TimeSpan OpeningTime { get; set; }
 
-        [Display(Name = "Closing Time")]
+        [Display(Name = "Sluitingstijd")]
         public TimeSpan ClosingTime { get; set; }
 
-        [Display(Name = "")]
+        [Display(Name = "Vakantie")]
         [NotMapped]
-        public ICollection<DateTime> Holidays { get; set; }
+        public ICollection<Holiday> Holidays { get; set; } = new List<Holiday>();
 
-        [Display(Name = "")]
-        public bool IsClosed { get; set; }
+        [Display(Name = "Is gesloten")]
+        public bool IsClosed { get; set; } 
+
+        public bool ForceClosed
+        {
+            get
+            {
+                var now = DateTime.Now.TimeOfDay;
+
+                if (now < OpeningTime || now > ClosingTime)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
     }
 }

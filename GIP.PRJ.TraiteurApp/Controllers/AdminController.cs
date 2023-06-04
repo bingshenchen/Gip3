@@ -1,26 +1,21 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using GIP.PRJ.TraiteurApp.Models;
+using Microsoft.AspNetCore.Identity;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using GIP.PRJ.TraiteurApp.ViewModels.Admin;
 using Kendo.Mvc.UI;
-using Kendo.Mvc.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly IAdminService _adminService; 
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IAdminService _adminService;
 
-        public AdminController(IAdminService adminService, UserManager<IdentityUser> userManager)
+        public AdminController(IAdminService adminService)
         {
             _adminService = adminService;
-            _userManager = userManager;
         }
 
         [Authorize(Roles = "Administrator")]
@@ -37,7 +32,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             {
                 ModelState.AddModelError("", "User not found");
                 return View(new UserViewModel());
-
             }
 
             return View(viewModel);
@@ -49,10 +43,9 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             return View(new UserViewModel());
         }
 
-        //POST: Admin/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,RoleName,Roles")] UserViewModel model)
+        public async Task<IActionResult> Create(UserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -60,29 +53,17 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
-
         }
 
         public async Task<IActionResult> Edit(string id)
         {
-            var user = await _adminService.GetUserByIdAsync(id);
-            if (user != null)
-            {
-                var roles = await _userManager.GetRolesAsync(user);
-                var viewModel = new UserViewModel
-                {
-                    UserId = user.Id,
-                    Email = user.Email,
-                    RoleName = string.Join(", ", roles)
-                };
-                return View(viewModel);
-            }
-            return RedirectToAction(nameof(Index));
+            var user = await _adminService.GetUserViewModelByIdAsync(id);
+            return user == null ? RedirectToAction(nameof(Index)) : View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,Email,RoleName,Roles")] UserViewModel model)
+        public async Task<IActionResult> Edit([Bind("UserId,Email,RoleName")] UserViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -95,26 +76,12 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await _adminService.GetUserByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            var roles = await _userManager.GetRolesAsync(user);
-            var viewModel = new UserViewModel
-            {
-                UserId = user.Id,
-                Email = user.Email,
-                RoleName = string.Join(", ", roles)
-            };
-
-            return View(viewModel);
+            var user = await _adminService.GetUserViewModelByIdAsync(id);
+            return user == null ? NotFound() : View(user);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await _adminService.DeleteUserAsync(id);
@@ -126,6 +93,5 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             var result = await _adminService.GetAdminsAsync(request);
             return Json(result);
         }
-
     }
 }

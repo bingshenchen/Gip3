@@ -13,7 +13,7 @@ namespace GIP.PRJ.TraiteurApp.Models
         public DbSet<Cook> Cooks { get; set; }
         public DbSet<MenuItemCategory> MenuItemCategories { get; set; }
         public DbSet<BusinessHours> BusinessHours { get; set; }
-
+        public DbSet<Holiday> Holidays { get; set; }
         public TraiteurAppDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -27,6 +27,11 @@ namespace GIP.PRJ.TraiteurApp.Models
                 new MenuItemCategory { Id = -2, Name = "Niet-alcoholische dranken", VAT = 6 },
                 new MenuItemCategory { Id = -3, Name = "Alcoholische dranken", VAT = 21 }
                 );
+
+            builder.Entity<BusinessHours>()
+                .HasMany(b => b.Holidays)
+                .WithOne(h => h.BusinessHours)
+                .HasForeignKey(h => h.BusinessHoursId);
         }
     }
 }
