@@ -298,23 +298,6 @@ namespace GIP.PRJ.TraiteurApp.Migrations
 
                     b.ToTable("OrderDetails");
                 });
-
-            modelBuilder.Entity("GIP.PRJ.TraiteurApp.ViewModels.Admin.UserViewModel", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserViewModels");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
