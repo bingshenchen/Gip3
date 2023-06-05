@@ -22,12 +22,22 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         private readonly ICookService _cookService;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IOrderService _orderService;
+        private CookService cookService;
+        private OrderService orderService;
+        private UserManager<IdentityUser> userManager;
 
         public CooksController(ICookService cookService, UserManager<IdentityUser> userManager, IOrderService orderService)
         {
             _cookService = cookService;
             _userManager = userManager;
             _orderService = orderService;
+        }
+
+        public CooksController(CookService cookService, OrderService orderService, UserManager<IdentityUser> userManager)
+        {
+            this.cookService = cookService;
+            this.orderService = orderService;
+            this.userManager = userManager;
         }
 
         // GET: Cooks

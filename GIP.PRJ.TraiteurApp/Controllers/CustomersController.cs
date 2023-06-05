@@ -24,6 +24,9 @@ namespace GIP.PRJ.TraiteurApp.Controllers
         private readonly ICustomerRespository _respository;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IMailService _mailService;
+        private ICustomerService object1;
+        private IOrderService object2;
+        private UserManager<IdentityUser> object3;
 
         public CustomersController(ICustomerService customerService, IOrderService orderService, UserManager<IdentityUser> userManager, IMailService mailService, ICustomerRespository respository)
         {
@@ -33,6 +36,14 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             _userManager = userManager;
             _mailService = mailService;
         }
+
+        public CustomersController(ICustomerService object1, IOrderService object2, UserManager<IdentityUser> object3)
+        {
+            this.object1 = object1;
+            this.object2 = object2;
+            this.object3 = object3;
+        }
+
         //REPOSITORY CODE ZIJN ALLEMAAL IN COMENTAAR GEZET!!
         // GET: Customers
         [Authorize(Roles = "Administrator")]
