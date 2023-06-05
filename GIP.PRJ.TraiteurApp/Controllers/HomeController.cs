@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
@@ -9,6 +10,8 @@ namespace GIP.PRJ.TraiteurApp.Controllers
     {
         private readonly ILogger<HomeController> _logger; 
         private readonly IBusinessHoursService _businessHoursService;
+        private readonly TraiteurAppDbContext _context;
+
 
         public HomeController(ILogger<HomeController> logger, IBusinessHoursService businessHoursService)
         {
@@ -18,8 +21,9 @@ namespace GIP.PRJ.TraiteurApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var businessHours = await _businessHoursService.GetBusinessHours();
-            return View(businessHours);
+            /*var businessHours = await _context.BusinessHours.Include(b => b.Holidays).FirstOrDefaultAsync();
+            return View(businessHours);*/
+            return View();
         }
 
         public IActionResult Privacy()
