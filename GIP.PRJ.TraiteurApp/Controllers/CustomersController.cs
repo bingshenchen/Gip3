@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Kendo.Mvc.UI;
 using Kendo.Mvc.Extensions;
 using GIP.PRJ.TraiteurApp.Services;
+using System.Drawing;
 
 namespace GIP.PRJ.TraiteurApp.Controllers
 {
@@ -103,7 +104,19 @@ namespace GIP.PRJ.TraiteurApp.Controllers
                 try
                 {
                     // Hier kan switch of if gebruiken voor de verschillende klanten 
-                    var mailContent = $"Beste {customer.Name},\r\n\r\nBedankt voor het registreren van een account bij LekkerBek! We zijn verheugd om je als nieuwe gebruiker te verwelkomen in onze community.\r\n\r\nMet vriendelijke groeten\r\nTeam 21";
+                    var mailContent = 
+                      /*  $"Beste {customer.Name},\n\nBedankt voor het registreren van een account bij LekkerBek! We zijn verheugd om je als nieuwe gebruiker te verwelkomen in onze community.\n\nMet vriendelijke groeten\n\nTeam 21";
+                    _mailService.SendMail("lekkerbekgip3@outlook.com", customer.EmailAddress, "Lekkerbek - Bevestiging aanmelding (klant " + customer.Name + ")",
+                         mailContent);*/
+
+                    "<html><body>" +
+                    "<div>" + "Beste " + customer.Name + "</div>" +
+                    "<br>" +
+                    "<div>" + "Dit is een bevestigingsmail voor je aanmelding" + "</div>" +
+                    "<br>" +
+                    "<div>" + "Met vriendelijke groeten" + "</div>" +
+                    "<div>" + "Groep 21" + "</div>" +
+                    "</body></html>";
                     _mailService.SendMail("lekkerbekgip3@outlook.com", customer.EmailAddress, "Lekkerbek - Bevestiging aanmelding (klant " + customer.Name + ")",
                          mailContent);
                     //ViewBag.InfoMessage = "De mail werd correct verstuurd";
