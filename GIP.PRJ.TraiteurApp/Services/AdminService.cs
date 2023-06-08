@@ -28,7 +28,6 @@ namespace GIP.PRJ.TraiteurApp.Services
         public async Task<List<UserViewModel>> GetAllUsersWithRoles()
         {
             var users = await _userManager.Users.ToListAsync();
-
             var userRoleViewModels = new List<UserViewModel>();
 
             foreach (var user in users)

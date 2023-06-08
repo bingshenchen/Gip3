@@ -13,8 +13,9 @@ namespace GIP.PRJ.TraiteurApp.Models
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Cook> Cooks { get; set; }
         public DbSet<MenuItemCategory> MenuItemCategories { get; set; }
+        /*public DbSet<UserViewModel> UserViewModel { get; set; }*/
 /*        public DbSet<BusinessHours> BusinessHours { get; set; }
-        public DbSet<Holiday> Holidays { get; set; }*/
+          public DbSet<Holiday> Holidays { get; set; }*/
         public TraiteurAppDbContext(DbContextOptions options) : base(options)
         {
         }

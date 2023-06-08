@@ -108,6 +108,7 @@ namespace GIP.PRJ.TraiteurApp.Migrations
 
                     b.ToTable("Customers");
                 });
+
             modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.MenuItem", b =>
                 {
                     b.Property<int>("Id")
@@ -248,6 +249,7 @@ namespace GIP.PRJ.TraiteurApp.Migrations
 
                     b.ToTable("OrderDetails");
                 });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")

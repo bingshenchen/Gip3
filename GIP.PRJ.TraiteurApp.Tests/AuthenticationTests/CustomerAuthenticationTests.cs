@@ -30,8 +30,8 @@ namespace GIP.PRJ.TraiteurApp.Tests.AuthenticationTests
             .UseSqlite(connection)
             .Options;
             // Configure any additional dependencies for the controller (e.g. services, repositories)
- var mockCustomerService = new Mock<ICustomerService>();
-        var mockOrderService = new Mock<IOrderService>();
+            var mockCustomerService = new Mock<ICustomerService>();
+            var mockOrderService = new Mock<IOrderService>();
             var mockMailService = new Mock<IMailService>();
             // Configure mockService as needed
             var customerNr1 = new Customer { Id = 1, Name = "John Doe" };
@@ -72,7 +72,7 @@ namespace GIP.PRJ.TraiteurApp.Tests.AuthenticationTests
             var adminUsers = new List<IdentityUser> { adminUser };
             userManagerMock.Setup(u =>
            u.GetUsersInRoleAsync(adminRole.Name)).ReturnsAsync(adminUsers);
-        var customerUsers = new List<IdentityUser> { customerUser };
+            var customerUsers = new List<IdentityUser> { customerUser };
             userManagerMock.Setup(u =>
            u.GetUsersInRoleAsync(custRole.Name)).ReturnsAsync(customerUsers);
             // Create the controller instance with the required dependencies
