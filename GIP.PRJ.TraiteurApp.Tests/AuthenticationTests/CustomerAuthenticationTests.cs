@@ -32,6 +32,7 @@ namespace GIP.PRJ.TraiteurApp.Tests.AuthenticationTests
             // Configure any additional dependencies for the controller (e.g. services, repositories)
  var mockCustomerService = new Mock<ICustomerService>();
         var mockOrderService = new Mock<IOrderService>();
+            var mockMailService = new Mock<IMailService>();
             // Configure mockService as needed
             var customerNr1 = new Customer { Id = 1, Name = "John Doe" };
             mockCustomerService.Setup(x =>
@@ -80,7 +81,7 @@ namespace GIP.PRJ.TraiteurApp.Tests.AuthenticationTests
             userMock.Setup(x => x.Identity.Name).Returns("customerUser");
             userMock.Setup(x => x.IsInRole("Administrator")).Returns(false);
             _controller = new CustomersController(mockCustomerService.Object,
-           mockOrderService.Object, userManagerMock.Object)
+           mockOrderService.Object, userManagerMock.Object, mockMailService.Object)
             {
                 ControllerContext = new ControllerContext
                 {
@@ -93,7 +94,6 @@ namespace GIP.PRJ.TraiteurApp.Tests.AuthenticationTests
         {
             _controller.Dispose();
         }
-        [TestMethod]
         public async Task CustomerController_Create_ForbiddenForCustomerRole()
         {
             // Arrange

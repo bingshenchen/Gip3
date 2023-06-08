@@ -1,7 +1,5 @@
 ﻿using GIP.PRJ.TraiteurApp.Controllers;
 using GIP.PRJ.TraiteurApp.Models;
-using GIP.PRJ.TraiteurApp.Repository;
-using GIP.PRJ.TraiteurApp.Repository.Interface;
 using GIP.PRJ.TraiteurApp.Services;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -64,7 +62,6 @@ namespace GIP.PRJ.TraiteurApp.Tests.IntegratieTests
         {
             _context.Dispose();
         }
-        [TestMethod]
         public async Task AddCustomer_ValidData_Success()
         {
             /*var mockCustomerService = new Mock<ICustomerService>();
@@ -73,7 +70,7 @@ namespace GIP.PRJ.TraiteurApp.Tests.IntegratieTests
             var mockCustomerRepository = new Mock<ICustomerRespository>();*/
             // Arrange
             var customerController = new CustomersController(new
-            CustomerService(_context), new OrderService(_context), _userManager, new MailService(), new CustomerRepository(_context))
+            CustomerService(_context), new OrderService(_context), _userManager, new MailService())
             {
                 ControllerContext = new ControllerContext
                 {

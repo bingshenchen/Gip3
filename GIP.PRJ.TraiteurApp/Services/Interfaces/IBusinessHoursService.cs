@@ -1,4 +1,4 @@
-﻿using GIP.PRJ.TraiteurApp.Models;
+﻿/*using GIP.PRJ.TraiteurApp.Models;
 
 namespace GIP.PRJ.TraiteurApp.Services.Interfaces
 {
@@ -12,4 +12,4 @@ namespace GIP.PRJ.TraiteurApp.Services.Interfaces
         Task SetIsClosed(bool isClosed);
         Task UpdateBusinessHours(BusinessHours businessHours);
     }
-}
+}*/

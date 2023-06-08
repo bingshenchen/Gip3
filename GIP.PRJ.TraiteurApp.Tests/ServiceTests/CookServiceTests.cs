@@ -1,7 +1,7 @@
 ﻿using GIP.PRJ.TraiteurApp.Controllers;
 using GIP.PRJ.TraiteurApp.Models;
-using GIP.PRJ.TraiteurApp.Repository;
-using GIP.PRJ.TraiteurApp.Repository.Interface;
+/*using GIP.PRJ.TraiteurApp.Repository;*/
+/*using GIP.PRJ.TraiteurApp.Repository.Interface;*/
 using GIP.PRJ.TraiteurApp.Services;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;

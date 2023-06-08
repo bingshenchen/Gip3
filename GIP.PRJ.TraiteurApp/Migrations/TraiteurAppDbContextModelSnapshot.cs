@@ -22,34 +22,6 @@ namespace GIP.PRJ.TraiteurApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.BusinessHours", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ClosingDays")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<TimeSpan>("ClosingTime")
-                        .HasColumnType("time");
-
-                    b.Property<string>("DayOfWeek")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsClosed")
-                        .HasColumnType("bit");
-
-                    b.Property<TimeSpan>("OpeningTime")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BusinessHours");
-                });
-
             modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.Cook", b =>
                 {
                     b.Property<int>("Id")
@@ -136,28 +108,6 @@ namespace GIP.PRJ.TraiteurApp.Migrations
 
                     b.ToTable("Customers");
                 });
-
-            modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.Holiday", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessHoursId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BusinessHoursId");
-
-                    b.ToTable("Holidays");
-                });
-
             modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.MenuItem", b =>
                 {
                     b.Property<int>("Id")
@@ -523,17 +473,6 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                     b.Navigation("IdentityUser");
                 });
 
-            modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.Holiday", b =>
-                {
-                    b.HasOne("GIP.PRJ.TraiteurApp.Models.BusinessHours", "BusinessHours")
-                        .WithMany("Holidays")
-                        .HasForeignKey("BusinessHoursId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BusinessHours");
-                });
-
             modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.MenuItem", b =>
                 {
                     b.HasOne("GIP.PRJ.TraiteurApp.Models.MenuItemCategory", "MenuItemCategory")
@@ -637,11 +576,6 @@ namespace GIP.PRJ.TraiteurApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.BusinessHours", b =>
-                {
-                    b.Navigation("Holidays");
                 });
 
             modelBuilder.Entity("GIP.PRJ.TraiteurApp.Models.Cook", b =>

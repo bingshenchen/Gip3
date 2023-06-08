@@ -32,14 +32,6 @@ namespace GIP.PRJ.TraiteurApp.Controllers
             _userManager = userManager;
             _orderService = orderService;
         }
-
-        public CooksController(CookService cookService, OrderService orderService, UserManager<IdentityUser> userManager)
-        {
-            this.cookService = cookService;
-            this.orderService = orderService;
-            this.userManager = userManager;
-        }
-
         // GET: Cooks
         public async Task<IActionResult> Index()
         {

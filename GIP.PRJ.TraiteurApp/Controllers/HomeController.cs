@@ -9,14 +9,14 @@ namespace GIP.PRJ.TraiteurApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger; 
-        private readonly IBusinessHoursService _businessHoursService;
+/*      private readonly IBusinessHoursService _businessHoursService;*/
         private readonly TraiteurAppDbContext _context;
 
 
-        public HomeController(ILogger<HomeController> logger, IBusinessHoursService businessHoursService)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _businessHoursService = businessHoursService;
+            /*_businessHoursService = businessHoursService;*/
         }
 
         public async Task<IActionResult> Index()

@@ -1,4 +1,4 @@
-﻿using GIP.PRJ.TraiteurApp.Models;
+﻿/*using GIP.PRJ.TraiteurApp.Models;
 
 namespace GIP.PRJ.TraiteurApp.Repository.Interface
 {
@@ -15,3 +15,4 @@ namespace GIP.PRJ.TraiteurApp.Repository.Interface
 
     }
 }
+*/

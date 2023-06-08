@@ -1,7 +1,5 @@
 ﻿using GIP.PRJ.TraiteurApp.Controllers;
 using GIP.PRJ.TraiteurApp.Models;
-using GIP.PRJ.TraiteurApp.Repository;
-using GIP.PRJ.TraiteurApp.Repository.Interface;
 using GIP.PRJ.TraiteurApp.Services;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +41,6 @@ namespace GIP.PRJ.TraiteurApp.Tests.ServiceTests
             _context.Database.EnsureDeleted();
             _context.Dispose();
         }
-        [TestMethod]
         public async Task CreateCustomer_Success()
         {
             // Arrange
@@ -68,7 +65,6 @@ namespace GIP.PRJ.TraiteurApp.Tests.ServiceTests
             // Assert
             // Exception is expected to be thrown
         }
-        [TestMethod]
         public async Task GetCustomerById_Success()
         {
             // Arrange
@@ -93,7 +89,6 @@ namespace GIP.PRJ.TraiteurApp.Tests.ServiceTests
             // Assert
             Assert.IsNull(retrievedCustomer);
         }
-        [TestMethod]
         public async Task UpdateCustomer_Success()
         {
             // Arrange

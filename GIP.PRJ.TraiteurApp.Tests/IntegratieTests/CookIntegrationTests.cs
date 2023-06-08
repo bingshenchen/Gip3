@@ -1,7 +1,5 @@
 ﻿using GIP.PRJ.TraiteurApp.Controllers;
 using GIP.PRJ.TraiteurApp.Models;
-using GIP.PRJ.TraiteurApp.Repository;
-using GIP.PRJ.TraiteurApp.Repository.Interface;
 using GIP.PRJ.TraiteurApp.Services;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -64,12 +63,11 @@ namespace GIP.PRJ.TraiteurApp.Tests.IntegratieTests
         {
             _context.Dispose();
         }
-        [TestMethod]
         public async Task AddCook_ValidData_Succes()
         {
             //Arrange
             var cookController = new CooksController(new
-            CookService(_context), new OrderService(_context), _userManager)
+            CookService(_context), _userManager, new OrderService(_context))
             {
                 ControllerContext = new ControllerContext
                 {

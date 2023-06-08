@@ -1,4 +1,4 @@
-﻿using GIP.PRJ.TraiteurApp.Models;
+﻿/*using GIP.PRJ.TraiteurApp.Models;
 using GIP.PRJ.TraiteurApp.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -50,3 +50,4 @@ namespace GIP.PRJ.TraiteurApp.Repository
         }
     }
 }
+*/

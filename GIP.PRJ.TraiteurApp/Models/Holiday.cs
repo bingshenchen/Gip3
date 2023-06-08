@@ -1,4 +1,4 @@
-﻿namespace GIP.PRJ.TraiteurApp.Models
+﻿/*namespace GIP.PRJ.TraiteurApp.Models
 {
     public class Holiday
     {
@@ -11,3 +11,4 @@
         public BusinessHours BusinessHours { get; set; }
     }
 }
+*/

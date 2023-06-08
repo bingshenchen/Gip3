@@ -1,6 +1,5 @@
 ﻿using GIP.PRJ.TraiteurApp.Controllers;
 using GIP.PRJ.TraiteurApp.Models;
-using GIP.PRJ.TraiteurApp.Repository.Interface;
 using GIP.PRJ.TraiteurApp.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -35,7 +34,7 @@ namespace GIP.PRJ.TraiteurApp.Tests.ControllerTests
             var mockCustomerService = new Mock<ICustomerService>();
             var mockOrderService = new Mock<IOrderService>();
             var mockMailService = new Mock<IMailService>(); // Create mock IMailService
-            var mockCustomerRepository = new Mock<ICustomerRespository>(); // Create mock ICustomerRespository
+            /*var mockCustomerRepository = new Mock<ICustomerRespository>();*/ // Create mock ICustomerRespository
 
             // Configure mockServices as needed
             var customerNr1 = new Customer { Id = 1, Name = "John Doe" };
@@ -62,8 +61,8 @@ namespace GIP.PRJ.TraiteurApp.Tests.ControllerTests
                 mockCustomerService.Object,
                 mockOrderService.Object,
                 userManagerMock.Object,
-                mockMailService.Object, // pass the mock IMailService
-                mockCustomerRepository.Object // pass the mock ICustomerRespository
+                mockMailService.Object // pass the mock IMailService
+                /*mockCustomerRepository.Object*/ // pass the mock ICustomerRespository
             )
             {
                 ControllerContext = new ControllerContext
