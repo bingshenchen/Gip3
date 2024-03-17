@@ -1,0 +1,45 @@
+﻿@using Kendo.Mvc.UI
+
+@{
+    ViewData["Title"] = "Overzicht menu items";
+}
+
+<h1>Overzicht menuitems</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Nieuw Menu-Item Toevoegen</a>
+</p>
+
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<GIP.PRJ.TraiteurApp.Models.MenuItem>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Hidden();
+            columns.Bound(p => p.Name);
+            columns.Bound(p => p.Description);
+            columns.Bound(p => p.Price);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Edit", "MenuItems", new { id = "#= Id #" }) +
+            "'><span class='k-icon k-i-edit'></span>Aanpassen</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Details", "MenuItems", new { id = "#= Id #" }) +
+            "'><span class='k-icon k-i-info-circle'></span>Details</a>"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Delete", "MenuItems", new { id = "#= Id #" }) +
+            "'><span class='k-icon k-i-delete'></span>Verwijderen</a>"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetMenuItems", "MenuItems"))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>

@@ -1,0 +1,25 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error</h1>
+<h2 class="text-danger">Er is een fout opgetreden tijdens de verwerking van uw verzoek.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Development Mode</h3>
+<p>
+    Wisselen naar <strong>Development</strong>  omgeving toont meer gedetailleerde informatie over de opgetreden fout.
+</p>
+<p>
+    <strong>De ontwikkelomgeving moet niet worden ingeschakeld voor geïmplementeerde toepassingen.</strong>
+    Dit kan ertoe leiden dat gevoelige informatie van uitzonderingen aan eindgebruikers wordt getoond.
+    Voor lokaal debuggen, schakelt u de <strong>Development</strong> omgeving door de <strong>ASPNETCORE_ENVIRONMENT</strong> omgevings variabele naar <strong>Development</strong>
+    en de app opnieuw opstarten.
+</p>

@@ -1,0 +1,67 @@
+﻿@using Kendo.Mvc.UI;
+
+@{
+    ViewData["Title"] = "Overzicht bestellingen";
+}
+
+<h1>Overzicht bestellingen - @ViewBag.CustomerName</h1>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.CustomerId" class="btn btn-success">Nieuwe bestelling</a>
+</p>
+
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<Order>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Hidden();
+            columns.Bound(p => p.OrderedOn);
+            columns.Bound(p => p.TimeSlot);
+            columns.Bound(p => p.Total);
+            columns.Bound(p => p.CookId);
+            columns.Bound(p => p.Status);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(!IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Edit", "Orders", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-edit'></span>Bewerken</a>" +
+            "#}#"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(!IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Details", "Orders", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-info-circle'></span>Details</a>" +
+            "#}#"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(!IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Index", "OrderDetails", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-link'></span>Details overzicht</a>" +
+            "#}#"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(!IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Delete", "Orders", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-delete'></span>Verwijderen</a>" +
+            "#}#"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Invoice", "Orders", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-text'></span>Factuur</a>" +
+            "#}#"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetOrdersByCustomer", "Orders", new { id = ViewBag.CustomerId }))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>

@@ -1,0 +1,59 @@
+﻿@*@model IEnumerable<GIP.PRJ.TraiteurApp.Models.BusinessHours>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DayOfWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OpeningTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsClosed)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model) 
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DayOfWeek)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClosingDays)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OpeningTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClosingTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsClosed)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+*@

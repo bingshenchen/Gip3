@@ -1,0 +1,62 @@
+﻿@model GIP.PRJ.TraiteurApp.Models.Cook
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Kok</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ChefName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ChefName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.YearsOfExperience)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.YearsOfExperience)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdentityUser)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdentityUser.Id)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HolidayStartTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HolidayStartTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HolidayEndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HolidayEndTime)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SickStartTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SickStartTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SickEndTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SickEndTime)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Terug naar het overzicht</a>
+</div>

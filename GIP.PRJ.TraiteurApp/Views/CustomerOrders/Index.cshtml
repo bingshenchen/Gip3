@@ -1,0 +1,53 @@
+﻿@using Kendo.Mvc.UI;
+
+@{
+    ViewData["Title"] = "Overzicht bestellingen";
+}
+
+<h1>Overzicht bestellingen - @ViewBag.CustomerName</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Doorgaan met bestellen</a>
+</p>
+
+<div class="form-group">
+    @(
+        Html.Kendo().Grid<Order>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Id).Hidden();
+            columns.Bound(p => p.OrderedOn);
+            columns.Bound(p => p.TimeSlot);
+            columns.Bound(p => p.Total);
+            columns.Bound(p => p.CookId);
+            columns.Bound(p => p.Status);
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(!IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Edit", "CustomerOrders", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-edit'></span>Aanpassen</a>" +
+            "#}#"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(!IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Details", "CustomerOrders", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-info-circle'></span>Details</a>" +
+            "#}#"
+            );
+            columns.Bound(p => p.Id).Width(100).Title(" ").ClientTemplate(
+            "#if(!IsPaid) {#" +
+            "<a class='k-button k-button-md k-rounded-md k-button-solid k-button-solid-base' href='" +
+            Url.Action("Index", "OrderDetails", new { id = "#= Id #" }) +
+            "'" + "><span class='k-icon k-i-link'></span>Detail overzicht</a>" +
+            "#}#"
+            );
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("GetOrders", "CustomerOrders"))
+        .Model(model => model.Id(d => d.Id))
+        )
+        )
+</div>

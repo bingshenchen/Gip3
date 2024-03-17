@@ -1,0 +1,37 @@
+﻿@model GIP.PRJ.TraiteurApp.Models.Cook
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Verwijderen</h1>
+
+<p style="color: darkred">Verwijderen van koks onuitvoerbaar (toegewezen aan (een) bestelling(en))</p>
+<div>
+    <h4>Cook</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChefName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChefName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.YearsOfExperience)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.YearsOfExperience)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdentityUser)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdentityUser.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Bewerken</a> |
+    <a asp-action="Index">Terug naar het overzicht</a>
+</div>

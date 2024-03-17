@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h1 class="display-4">Welkom</h1>
+    <p><img src="~/img/logo.jpeg" /></p>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="form-group">
+            Dit project maakt gebruik van een lokale sql server (db: Gip.TraiteurAppDb). Voer het commando update-database uit om de db aan te maken alvorens het project te starten.<br />
+            (Uiteraard kan de locatie, naam en andere instellingen aangepast worden in de appsettings.json config file)
+        </div>
+        <br />
+        <hr />
+        <div class="form-group">
+            <label>Login info:</label><br />
+            <label>Admin: admin@ucll.be / AdminPass123..</label>
+            <label>Klant: customer@ucll.be / CustomerPass123.. (+ Klant CustomerNr1 wordt automatisch aangemaakt en gelinkt met deze user)</label>
+            <label>Kok: cook@ucll.be / CookPass123.. (+ Kok Chefnr1 wordt automatisch aangemaakt en gelinkt met deze user)</label>
+        </div>
+        <br />
+        <hr/>
+        <div class="form-group">
+            De menu item categorieen (Afhaalgerechten, Niet-alcoholische dranken en Alcoholische dranken) worden automatisch aan de db toegevoegd.
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+@*<h4>Openingsueren</h4>*@
+
+@*<p>Openingsdagen: @Model.DayOfWeek</p>
+<p>Sluitingsdagen: @Model.ClosingDays</p>
+<p>Openingsuren @Model.OpeningTime</p>
+<p>Sluitingstijd: @Model.ClosingTime</p>*@
+@*@if (Model.ForceClosed)
+{
+    <p>LekkerBek is gesloten</p>
+}
+else
+{
+    <p>LekkerBek is open.</p>
+}*@
